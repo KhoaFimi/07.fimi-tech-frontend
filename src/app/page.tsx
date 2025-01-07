@@ -1,5 +1,11 @@
+import Campain from '@/app/(main)/campain/page'
+
 const HomePage = () => {
-	return <div className='~text-sm/lg'>Hello world</div>
+	return (
+		<div>
+			<Campain />
+		</div>
+	)
 }
 
 export default HomePage

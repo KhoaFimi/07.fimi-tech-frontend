@@ -52,7 +52,7 @@ const RootLayour: FC<PropsWithChildren> = ({ children }) => {
 			className={cn(montserrat.className, eb_garamond.className)}
 		>
 			<body className='flex min-h-[calc(100vh-1px)] flex-col bg-white/80 font-sans antialiased'>
-				<main className='relative flex flex-1 flex-col'>
+				<main className='relative flex flex-1 flex-col items-center justify-center'>
 					<QueryProvider>{children}</QueryProvider>
 					<Toaster />
 				</main>
