@@ -57,32 +57,6 @@ export type Report = {
 	managerCode: string
 }
 
-export type ReportResponse = {
-	data: Report[]
-	commision: {
-		pub: number
-		am: number
-		total: number
-		remain: number
-		paid: number
-	}
-	order: {
-		total: number
-		amOrder: number
-		pubOrder: number
-		approved: number
-		rejected: number
-		pending: number
-	}
-}
-
-export type TokenPayload = {
-	sub: string
-	publisherCode: string
-	managerCode: string
-	fullname: string
-	role: string
-}
 export enum SuccessCode {
 	OK = 'S2000', // Created record successfully
 	CREATED = 'S2010', // Request OK

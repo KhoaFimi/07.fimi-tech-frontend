@@ -10,9 +10,9 @@ export const envSchema = z.object({
 		.default('development'),
 	DOMAIN: z.string().default('http://localhost:3000'),
 	BASE_URL: z.string().url().default('http://localhost:3000'),
-	BACKEND_URL: z.string().url().default('http://localhost:8080/api/'),
 	API_KEY: z.string(),
-	PARTNER_CODE: z.string()
+	PARTNER_CODE: z.string(),
+	NEXT_PUBLIC_API_ENDPOINT: z.string().default('http://localhost:8080/api/')
 })
 
 declare global {
