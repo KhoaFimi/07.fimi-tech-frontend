@@ -1,0 +1,49 @@
+import { Loader2, LucideCheckCircle, TriangleAlert } from 'lucide-react'
+import { FC } from 'react'
+import { LuBan } from 'react-icons/lu'
+
+interface FormResponseProps {
+	message?: string
+}
+
+export const FormSuccess: FC<FormResponseProps> = ({ message }) => {
+	if (!message) return null
+
+	return (
+		<div className='flex items-center gap-x-1.5 rounded-md bg-emerald-500/15 p-3 text-sm text-emerald-500'>
+			<LucideCheckCircle className='size-4' />
+			<p className='tracking-tight'>{message}</p>
+		</div>
+	)
+}
+
+export const FormError: FC<FormResponseProps> = ({ message }) => {
+	if (!message) return null
+
+	return (
+		<div className='flex items-center gap-x-1.5 rounded-md bg-destructive/15 p-3 text-sm text-destructive'>
+			<LuBan className='size-4' />
+			<p className='tracking-tight'>{message}</p>
+		</div>
+	)
+}
+
+export const FormWarning: FC<FormResponseProps> = ({ message }) => {
+	if (!message) return null
+
+	return (
+		<div className='flex items-center gap-x-1.5 rounded-md bg-orange-500/15 p-3 text-sm text-orange-500'>
+			<TriangleAlert className='size-4' />
+			<p className='tracking-tight'>{message}</p>
+		</div>
+	)
+}
+
+export const FormPending: FC<FormResponseProps> = ({ message }) => {
+	return (
+		<div className='flex items-center gap-x-1.5 rounded-md bg-foreground/15 p-3 text-sm text-foreground/50'>
+			<Loader2 className='size-4 animate-spin' />
+			<p className='tracking-tight'>{message}</p>
+		</div>
+	)
+}
