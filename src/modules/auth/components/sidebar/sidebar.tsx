@@ -33,16 +33,16 @@ const AppSidebar = () => {
 					target='_blank'
 				>
 					<Image
-						src='/logo-negative.png'
+						src='/logo.png'
 						width={3148}
 						height={1367}
 						alt='logo'
-						className='w-[100px]'
+						className='ml-[8px] mt-[12px] w-[70px]'
 					/>
 				</Link>
 			</div>
 
-			<div className='mt-[10px] font-bold text-primary'>
+			<div className='mt-[20px] font-bold text-primary'>
 				<SidebarMenuItem>
 					<SidebarMenuButton
 						onClick={toggleMenu}

@@ -10,6 +10,24 @@ export interface AddressApiResponse {
 	data_name?: string
 	data: CityType[]
 }
+export type ReportResponse = {
+	data: Report[]
+	commision: {
+		pub: number
+		am: number
+		total: number
+		remain: number
+		paid: number
+	}
+	order: {
+		total: number
+		amOrder: number
+		pubOrder: number
+		approved: number
+		rejected: number
+		pending: number
+	}
+}
 
 export interface BankApiResponse {
 	code: string

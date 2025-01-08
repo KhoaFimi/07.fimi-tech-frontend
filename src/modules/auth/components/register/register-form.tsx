@@ -1,15 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { rest } from 'lodash'
+import { AxiosError } from 'axios'
 import { Loader2, Lock, LockKeyhole, Mail, Phone, User } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { FormError } from '@/components/form-response'
 import { Button } from '@/components/ui/button'
 import {
 	Form,
@@ -20,7 +17,6 @@ import {
 	FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { apiRequest } from '@/lib/http'
 import { register } from '@/modules/auth/actions/register'
 import { FormWrapper } from '@/modules/auth/components/form/form-wrapper'
 import {
@@ -41,14 +37,26 @@ const RegisterForm = () => {
 			platformCode: 'FIMI'
 		}
 	})
-	interface RegisterResponse {
-		verificationKey: string
-	}
-
-	const [error, setError] = useState<string | undefined>(undefined)
 
 	const { isPending, mutate: onRegister } = useMutation({
-		mutationFn: async (values: RegisterSchema) => await register(values)
+		mutationFn: async (values: RegisterSchema) => {
+			const result = await register(values)
+			if (result.error) {
+				throw new Error(result.error)
+			}
+
+			return result
+		},
+		onSuccess: data => {
+			console.log(data.verificationKey)
+		},
+		onError: error => {
+			if (error instanceof AxiosError) {
+				console.log(error.response?.data)
+			} else {
+				console.log(error)
+			}
+		}
 	})
 
 	const onSubmit = (values: RegisterSchema) => {
@@ -191,8 +199,6 @@ const RegisterForm = () => {
 							</p>
 						</Link>
 					</div>
-
-					<FormError message={error} />
 
 					<Button
 						type='submit'
