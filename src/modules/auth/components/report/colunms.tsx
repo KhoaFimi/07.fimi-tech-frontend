@@ -11,7 +11,7 @@ export const managmentReportColumns: ColumnDef<Report>[] = [
 	{
 		accessorKey: 'id',
 		header: () => (
-			<div className='truncate text-left text-xs lg:text-sm'>Mã đơn</div>
+			<div className='truncate text-left text-xs lg:text-base'>Mã đơn</div>
 		),
 
 		cell: ({ row }) => (
@@ -26,7 +26,7 @@ export const managmentReportColumns: ColumnDef<Report>[] = [
 		header: ({ column }) => {
 			return (
 				<div
-					className='flex w-fit cursor-pointer items-center justify-start gap-2 text-xs lg:text-sm'
+					className='flex w-fit cursor-pointer items-center justify-start gap-2 text-xs lg:text-base'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					<p className='truncate'>Ngày lên đơn</p>
@@ -57,7 +57,7 @@ export const managmentReportColumns: ColumnDef<Report>[] = [
 		header: ({ column }) => {
 			return (
 				<div
-					className='flex w-fit cursor-pointer items-center justify-start gap-2 text-xs lg:text-sm'
+					className='flex w-fit cursor-pointer items-center justify-start gap-2 text-xs lg:text-base'
 					onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
 				>
 					<p className='truncate'>Chiến dịch</p>
@@ -75,7 +75,9 @@ export const managmentReportColumns: ColumnDef<Report>[] = [
 	{
 		accessorKey: 'publisherCode',
 		header: () => (
-			<div className='truncate text-left text-xs lg:text-sm'>Mã publisher</div>
+			<div className='truncate text-left text-xs lg:text-base'>
+				Mã publisher
+			</div>
 		),
 		cell: ({ row }) => (
 			<div className='text-left text-xs'>{row.getValue('publisherCode')}</div>
@@ -87,7 +89,7 @@ export const managmentReportColumns: ColumnDef<Report>[] = [
 	{
 		accessorKey: 'customerName',
 		header: () => (
-			<div className='truncate text-left text-xs lg:text-sm'>
+			<div className='truncate text-left text-xs lg:text-base'>
 				Tên khách hàng
 			</div>
 		),
@@ -107,7 +109,9 @@ export const managmentReportColumns: ColumnDef<Report>[] = [
 		},
 		header: () => {
 			return (
-				<div className='truncate text-start text-xs lg:text-sm'>Trạng thái</div>
+				<div className='truncate text-start text-xs lg:text-base'>
+					Trạng thái
+				</div>
 			)
 		},
 		cell: ({ row }) => {
@@ -138,7 +142,7 @@ export const managmentReportColumns: ColumnDef<Report>[] = [
 		accessorKey: 'commision',
 		header: () => {
 			return (
-				<div className='truncate text-start text-xs lg:text-sm'>Hoa hồng</div>
+				<div className='truncate text-start text-xs lg:text-base'>Hoa hồng</div>
 			)
 		},
 		cell: ({ row }) => {
@@ -175,7 +179,9 @@ export const managmentReportColumns: ColumnDef<Report>[] = [
 		accessorKey: 'managmentCommission',
 		header: () => {
 			return (
-				<div className='truncate text-left text-xs lg:text-sm'>Hoa hồng AM</div>
+				<div className='truncate text-left text-xs lg:text-base'>
+					Hoa hồng AM
+				</div>
 			)
 		},
 		cell: ({ row }) => {
@@ -256,3 +262,4 @@ export const managmentReportColumns: ColumnDef<Report>[] = [
 	// }
 	// #endregion
 ]
+export default managmentReportColumns

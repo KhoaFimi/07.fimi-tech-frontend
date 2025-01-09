@@ -2,11 +2,12 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
 import { Loader2, Lock, LockKeyhole, Mail, Phone, User } from 'lucide-react'
 import Link from 'next/link'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { FormError } from '@/components/form-response'
 import { Button } from '@/components/ui/button'
 import {
 	Form,
@@ -37,24 +38,13 @@ const RegisterForm = () => {
 			platformCode: 'FIMI'
 		}
 	})
+	const [error, setError] = useState<string | undefined>(undefined)
 
 	const { isPending, mutate: onRegister } = useMutation({
-		mutationFn: async (values: RegisterSchema) => {
-			const result = await register(values)
-			if (result.error) {
-				throw new Error(result.error)
-			}
-
-			return result
-		},
+		mutationFn: async (values: RegisterSchema) => await register(values),
 		onSuccess: data => {
-			console.log(data.verificationKey)
-		},
-		onError: error => {
-			if (error instanceof AxiosError) {
-				console.log(error.response?.data)
-			} else {
-				console.log(error)
+			if (data.error) {
+				setError(data.error)
 			}
 		}
 	})
@@ -199,11 +189,13 @@ const RegisterForm = () => {
 							</p>
 						</Link>
 					</div>
+					<FormError message={error} />
 
 					<Button
 						type='submit'
 						size='sm'
 						disabled={isPending}
+						onClick={form.handleSubmit(onSubmit)}
 						className='items-center gap-4 bg-gradient-to-tr from-primary from-30% to-secondary text-xs font-bold'
 					>
 						{isPending && <Loader2 className='size-5 animate-spin' />}

@@ -1,10 +1,8 @@
 'use client'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { Loader2, LockKeyhole, User } from 'lucide-react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { Loader2, Lock, RectangleEllipsis } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -19,36 +17,48 @@ import {
 	FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { login } from '@/modules/auth/actions/login'
+import {
+	InputOTP,
+	InputOTPGroup,
+	InputOTPSeparator,
+	InputOTPSlot
+} from '@/components/ui/input-otp'
+import { resetPassword } from '@/modules/auth/actions/reset-password'
 import { FormWrapper } from '@/modules/auth/components/form/form-wrapper'
-import { LoginSchema, loginSchema } from '@/modules/auth/schemas/login.schema'
+import {
+	ResetPasswordSchema,
+	resetPasswordSchema
+} from '@/modules/auth/schemas/reset-password-schema'
 
-const LoginForm = () => {
-	const router = useRouter()
-	const form = useForm<LoginSchema>({
-		resolver: zodResolver(loginSchema),
+const ResetPasswordForm = () => {
+	const searchParams = useSearchParams()
+	const [error, setError] = useState<string | undefined>(undefined)
+	const form = useForm<ResetPasswordSchema>({
+		resolver: zodResolver(resetPasswordSchema),
 		defaultValues: {
-			email: '',
-			password: ''
+			verificationKey: searchParams.get('key') ?? '',
+			password: '',
+			otp: '',
+			confirmPassword: ''
 		}
 	})
-	const [error, setError] = useState<string | undefined>(undefined)
-	const { isPending, mutate: onOTP } = useMutation({
-		mutationFn: async (values: LoginSchema) => await login(values),
+
+	const { isPending, mutate: onResetpassword } = useMutation({
+		mutationFn: async (values: ResetPasswordSchema) =>
+			await resetPassword(values),
 		onSuccess: data => {
 			if (data.error) {
 				setError(data.error)
-			} else {
-				router.push('/dashboard/campain')
 			}
 		}
 	})
 
-	const onSubmit = (values: LoginSchema) => {
-		onOTP(values)
+	const onSubmit = (values: ResetPasswordSchema) => {
+		onResetpassword(values)
 	}
+
 	return (
-		<FormWrapper title='Đăng nhập'>
+		<FormWrapper title='Tạo Mật Khẩu Mới'>
 			<Form {...form}>
 				<form
 					autoComplete='autocomplete_off_randString'
@@ -56,16 +66,16 @@ const LoginForm = () => {
 					onSubmit={form.handleSubmit(onSubmit)}
 				>
 					<FormField
-						name='email'
+						name='password'
 						control={form.control}
 						render={({ field }) => (
 							<FormItem>
 								<FormLabel className='flex items-start space-x-1 text-xs font-semibold tracking-tight text-foreground/80'>
-									<User
+									<Lock
 										className='size-3'
 										strokeWidth={3}
 									/>
-									<p className='leading-none'>Email / Số điện thoại</p>
+									<p className='leading-none'>Mật Khẩu</p>
 								</FormLabel>
 								<FormControl>
 									<Input
@@ -81,16 +91,18 @@ const LoginForm = () => {
 
 					<div className='flex flex-col space-y-2'>
 						<FormField
-							name='password'
+							name='confirmPassword'
 							control={form.control}
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel className='flex items-start space-x-1 text-xs font-semibold tracking-tight text-foreground/80'>
-										<LockKeyhole
+										<RectangleEllipsis
 											className='size-3'
 											strokeWidth={3}
 										/>
-										<p className='leading-none tracking-tight'>Mật khẩu</p>
+										<p className='leading-none tracking-tight'>
+											Xác Nhận Mật khẩu
+										</p>
 									</FormLabel>
 									<FormControl>
 										<Input
@@ -104,11 +116,44 @@ const LoginForm = () => {
 								</FormItem>
 							)}
 						/>
-						<Link href='/auth/forgot-password'>
-							<p className='text-right text-xs/3 font-medium text-primary/50 transition-all duration-150 ease-out hover:text-primary hover:underline'>
-								Quên mật khẩu
-							</p>
-						</Link>
+						<div>
+							<h5 className='text-center font-bold'>Nhập Mã OTP</h5>
+							<Form {...form}>
+								<form
+									autoComplete='autocomplete_off_randString'
+									className='mx-auto flex w-full max-w-md flex-col items-center gap-2.5 px-4 pt-4'
+									onSubmit={form.handleSubmit(onSubmit)}
+								>
+									<FormField
+										name='otp'
+										control={form.control}
+										render={({ field }) => (
+											<InputOTP
+												maxLength={6}
+												className='flex flex-col items-center justify-center'
+												{...field}
+												disabled={isPending}
+											>
+												<InputOTPGroup>
+													<InputOTPSlot index={0} />
+													<InputOTPSlot index={1} />
+													<InputOTPSlot index={2} />
+												</InputOTPGroup>
+												<InputOTPSeparator />
+												<InputOTPSeparator />
+												<InputOTPGroup>
+													<InputOTPSlot index={3} />
+													<InputOTPSlot index={4} />
+													<InputOTPSlot index={5} />
+												</InputOTPGroup>
+											</InputOTP>
+										)}
+									/>
+
+									<FormError message={error} />
+								</form>
+							</Form>
+						</div>
 					</div>
 
 					<FormError message={error} />
@@ -124,15 +169,8 @@ const LoginForm = () => {
 					</Button>
 				</form>
 			</Form>
-
-			<p className='px-2 py-2.5 text-center text-xs'>
-				Bạn chưa có mã giới thiệu{' '}
-				<span className='font-semibold text-primary transition hover:underline'>
-					<Link href={'/auth/register'}>Đăng ký</Link>
-				</span>
-			</p>
 		</FormWrapper>
 	)
 }
 
-export default LoginForm
+export default ResetPasswordForm

@@ -34,7 +34,7 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 		<div className='flex flex-col space-y-1'>
 			<div className='grid grid-cols-2 gap-x-2 gap-y-1'>
 				<div className='flex flex-col gap-2 rounded-lg border p-2 shadow-md'>
-					<h5 className='bg-gradient-to-tr from-primary from-30% to-secondary bg-clip-text text-center text-sm font-bold uppercase text-transparent'>
+					<h5 className='bg-gradient-to-tr from-primary from-30% to-secondary bg-clip-text text-center text-xl font-bold uppercase text-transparent'>
 						Đơn hàng
 					</h5>
 					<Accordion
@@ -44,9 +44,11 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 						className='w-full'
 					>
 						<AccordionItem value='item-1'>
-							<AccordionTrigger>Tổng đơn: {order.total}</AccordionTrigger>
+							<AccordionTrigger className='text-base'>
+								Tổng đơn: {order.total}
+							</AccordionTrigger>
 							<AccordionContent>
-								<ul className='space-y-1.5'>
+								<ul className='space-y-1.5 text-base'>
 									<li className='flex items-start gap-1'>
 										<User className='size-4' />
 										<p>
@@ -56,7 +58,7 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 											</span>{' '}
 										</p>
 									</li>
-									<li className='flex items-start gap-1'>
+									<li className='flex items-start gap-1 text-base'>
 										<Users className='size-4' />
 										Đơn AM:{' '}
 										<span className='font-semibold text-primary'>
@@ -67,9 +69,11 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 							</AccordionContent>
 						</AccordionItem>
 						<AccordionItem value='item-2'>
-							<AccordionTrigger>Tình trạng đơn</AccordionTrigger>
+							<AccordionTrigger className='text-base'>
+								Tình trạng đơn
+							</AccordionTrigger>
 							<AccordionContent>
-								<ul className='space-y-1.5'>
+								<ul className='space-y-1.5 text-base'>
 									<li className='flex items-start gap-1'>
 										<CheckCircle className='size-4 text-green-500' />
 										<p>
@@ -94,15 +98,15 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 								<div className='mt-1 flex flex-col gap-y-1 rounded-md border p-2'>
 									<div className='flex items-start gap-0.5'>
 										<CheckCircle className='size-3' />
-										<p className='text-xs'>: Ghi nhận hoa hồng</p>
+										<p className='text-base'>: Ghi nhận hoa hồng</p>
 									</div>
 									<div className='flex items-start gap-0.5'>
 										<Clock7 className='size-3' />
-										<p className='text-xs'>: Chưa hoàn thành đơn</p>
+										<p className='text-base'>: Chưa hoàn thành đơn</p>
 									</div>
 									<div className='flex items-start gap-0.5'>
 										<Ban className='size-3' />
-										<p className='text-xs'>: Từ chối</p>
+										<p className='text-base'>: Từ chối</p>
 									</div>
 								</div>
 							</AccordionContent>
@@ -112,7 +116,7 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 
 				{/* commision */}
 				<div className='flex flex-col gap-2 rounded-lg border p-2 shadow-md'>
-					<h5 className='bg-gradient-to-tr from-primary from-30% to-secondary bg-clip-text text-center text-sm font-bold uppercase text-transparent'>
+					<h5 className='bg-gradient-to-tr from-primary from-30% to-secondary bg-clip-text text-center text-xl font-bold uppercase text-transparent'>
 						Doang thu
 					</h5>
 					<Accordion
@@ -122,7 +126,7 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 						className='w-full'
 					>
 						<AccordionItem value='item-1'>
-							<AccordionTrigger>
+							<AccordionTrigger className='text-base'>
 								Tổng:{' '}
 								{commision.total.toLocaleString('vi-VN', {
 									style: 'currency',
@@ -133,7 +137,7 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 								<ul className='space-y-1.5'>
 									<li className='flex items-start gap-1'>
 										<User className='size-4' />
-										<p>
+										<p className='text-base'>
 											Cá nhân:{' '}
 											<span className='text-[0.8rem] font-semibold tracking-tight text-primary'>
 												{commision.pub.toLocaleString('vi-VN', {
@@ -143,7 +147,7 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 											</span>{' '}
 										</p>
 									</li>
-									<li className='flex items-start gap-1'>
+									<li className='flex items-start gap-1 text-base'>
 										<Users className='size-4' />
 										AM:{' '}
 										<span className='text-[0.8rem] font-semibold tracking-tight text-primary'>
@@ -157,7 +161,9 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 							</AccordionContent>
 						</AccordionItem>
 						<AccordionItem value='item-2'>
-							<AccordionTrigger>Thanh toán</AccordionTrigger>
+							<AccordionTrigger className='text-base'>
+								Thanh toán
+							</AccordionTrigger>
 							<AccordionContent>
 								<ul className='space-y-1.5'>
 									<li className='flex items-start gap-1'>
@@ -184,11 +190,11 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 								<div className='mt-1 flex flex-col gap-y-1 rounded-md border p-2'>
 									<div className='flex items-start gap-0.5'>
 										<CheckCircle className='size-3' />
-										<p className='text-xs'>: Đã thanh toán</p>
+										<p className='text-base'>: Đã thanh toán</p>
 									</div>
 									<div className='flex items-start gap-0.5'>
 										<Archive className='size-3' />
-										<p className='text-xs'>: Chưa thanh toán</p>
+										<p className='text-base'>: Chưa thanh toán</p>
 									</div>
 								</div>
 							</AccordionContent>
