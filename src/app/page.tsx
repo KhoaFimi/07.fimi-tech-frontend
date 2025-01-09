@@ -1,4 +1,4 @@
-import Campain from '@/app/(main)/campain/page'
+import Campain from '@/app/dashboard/campain/page'
 
 const HomePage = () => {
 	return (

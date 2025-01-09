@@ -1,4 +1,5 @@
-import { ChevronDown, ChevronRight } from 'lucide-react' // Thêm import các icon
+'use client'
+import { ChevronDown, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -26,23 +27,23 @@ const AppSidebar = () => {
 	const toggleMenu = () => setMenuOpen(prev => !prev)
 
 	return (
-		<Sidebar className='fixed z-[48] flex min-h-screen w-64 flex-col justify-between'>
+		<Sidebar className='fixed z-[48] flex min-h-screen w-64 flex-col justify-between bg-primary'>
 			<div>
 				<Link
 					href='/campaign'
 					target='_blank'
 				>
 					<Image
-						src='/logo.png'
+						src='/logo-negative.png'
 						width={3148}
 						height={1367}
 						alt='logo'
-						className='ml-[8px] mt-[12px] w-[70px]'
+						className='ml-[75px] mt-[8px] w-[100px]'
 					/>
 				</Link>
 			</div>
 
-			<div className='mt-[20px] font-bold text-primary'>
+			<div className='ml-[20px] mt-[45px] font-bold text-white'>
 				<SidebarMenuItem>
 					<SidebarMenuButton
 						onClick={toggleMenu}
@@ -59,7 +60,7 @@ const AppSidebar = () => {
 					</SidebarMenuButton>
 
 					{menuOpen && (
-						<SidebarMenuSub className='mt-2 pl-4'>
+						<SidebarMenuSub className='mt-2 pl-4 font-bold text-white'>
 							{items.map(item => (
 								<SidebarMenuSubItem key={item.title}>
 									<SidebarMenuButton>{item.title}</SidebarMenuButton>
@@ -84,8 +85,8 @@ const AppSidebar = () => {
 					</SidebarMenuButton>
 				</SidebarMenuItem>
 			</div>
-			<SidebarFooter className='mt-[375px] bg-primary text-[11px] font-bold text-white'>
-				<p>Copyright © FIMI Tech Co., Ltd, all right reserved.</p>
+			<SidebarFooter className='fixed bottom-0 left-0 w-[255px] bg-white text-[10px] font-bold text-primary'>
+				<p className=''>Copyright © FIMI Tech Co., Ltd, all right reserved.</p>
 			</SidebarFooter>
 		</Sidebar>
 	)

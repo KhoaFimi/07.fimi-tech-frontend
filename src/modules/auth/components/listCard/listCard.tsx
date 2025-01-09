@@ -34,7 +34,7 @@ const ListCard: FC<{ products: Array<any> }> = ({ products }) => {
 	}
 
 	return (
-		<div className='grid grid-cols-2 gap-10 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5'>
+		<div className='grid grid-cols-2 gap-20 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-5'>
 			{products.map(product => {
 				const Icon = pickIcon(product.category)
 
@@ -49,11 +49,11 @@ const ListCard: FC<{ products: Array<any> }> = ({ products }) => {
 							alt={product.name}
 							width={176}
 							height={256}
-							className='absolute z-0 object-contain'
+							className='absolute z-0 ml-[9.3px] mt-[-3px] scale-x-110 object-contain'
 						/>
 						<div className='absolute inset-0 bottom-0 h-full w-full transition-all' />
 						<div className='z-30 mt-auto flex h-1/4 w-full select-none flex-col gap-y-1 bg-white p-1 pt-2'>
-							<p className='text-center text-[12px] font-medium leading-none tracking-tight'>
+							<p className='text-center text-[16px] font-medium leading-none tracking-tight'>
 								{product.name}
 							</p>
 							<div className='flex items-center gap-x-0.5'></div>
@@ -63,7 +63,7 @@ const ListCard: FC<{ products: Array<any> }> = ({ products }) => {
 										className='size-3'
 										strokeWidth={3}
 									/>
-									<p className='left-9 font-semibold'>
+									<p className='left-9 text-[12px] font-semibold'>
 										Hoa hồng:{' '}
 										{product.show.commision ?? (
 											<span className='underline'>Chi tiết</span>

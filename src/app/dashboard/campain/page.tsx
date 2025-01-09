@@ -15,7 +15,6 @@ import ListCard from '@/modules/auth/components/listCard/listCard'
 import AppSidebar from '@/modules/auth/components/sidebar/sidebar'
 
 const Campain = () => {
-	// Tạo dữ liệu mẫu cho sản phẩm
 	const products = [
 		{
 			link: '/campaign/1',
@@ -24,7 +23,7 @@ const Campain = () => {
 			name: 'Thẻ tín dụng ACB',
 			advertiser: 'Ngân hàng ACB',
 			show: {
-				image: 'vpbgenz.png',
+				image: 'VPBank_new.png',
 				income: '200,000 VND',
 				commision: '5%',
 				approvalTime: '2 ngày'
@@ -45,7 +44,7 @@ const Campain = () => {
 			name: 'VP Lady',
 			advertiser: 'VP Lady',
 			show: {
-				image: 'vpblady.png',
+				image: 'VPBank_JCB.png',
 				income: '150,000 VND',
 				commision: '3%',
 				approvalTime: '1 ngày'
@@ -66,7 +65,7 @@ const Campain = () => {
 			name: 'VP Lady',
 			advertiser: 'VP Lady',
 			show: {
-				image: 'vpbmc2.png',
+				image: 'VPBank_Lady.png',
 				income: '150,000 VND',
 				commision: '3%',
 				approvalTime: '1 ngày'
@@ -87,7 +86,7 @@ const Campain = () => {
 			name: 'VP Lady',
 			advertiser: 'VP Lady',
 			show: {
-				image: 'vpbvna.png',
+				image: 'VPBank_Prime.png',
 				income: '150,000 VND',
 				commision: '3%',
 				approvalTime: '1 ngày'
@@ -108,7 +107,7 @@ const Campain = () => {
 			name: 'VP Lady',
 			advertiser: 'VP Lady',
 			show: {
-				image: 'vpbstepup.png',
+				image: 'VPBank_Lady.png',
 				income: '150,000 VND',
 				commision: '3%',
 				approvalTime: '1 ngày'

@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
 import { Loader2, ShieldCheck } from 'lucide-react'
+import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -15,21 +16,34 @@ import {
 	InputOTPSeparator,
 	InputOTPSlot
 } from '@/components/ui/input-otp'
+import { otp } from '@/modules/auth/actions/otp'
 import { FormWrapper } from '@/modules/auth/components/form/form-wrapper'
-import { LoginSchema, loginSchema } from '@/modules/auth/schemas/login.schema'
+import { OtpSchema, otpSchema } from '@/modules/auth/schemas/otp.schema'
 
 const OTPForm = () => {
-	const form = useForm<LoginSchema>({
-		resolver: zodResolver(loginSchema),
+	const searchParams = useSearchParams()
+	const [error, setError] = useState<string | undefined>(undefined)
+	const form = useForm<OtpSchema>({
+		resolver: zodResolver(otpSchema),
 		defaultValues: {
-			phoneOrEmail: '',
-			password: ''
+			verificationKey: searchParams.get('key') ?? '',
+			otp: ''
 		}
 	})
 
-	const [error, setError] = useState<string | undefined>(undefined)
+	const { isPending, mutate: onOTP } = useMutation({
+		mutationFn: async (values: OtpSchema) => await otp(values),
+		onSuccess: data => {
+			if (data.error) {
+				setError(data.error)
+			}
+		}
+	})
 
-	const isPending = false
+	const onSubmit = (values: OtpSchema) => {
+		onOTP(values)
+	}
+
 	return (
 		<FormWrapper
 			title='Nhập Mã OTP'
@@ -44,23 +58,29 @@ const OTPForm = () => {
 				<form
 					autoComplete='autocomplete_off_randString'
 					className='mx-auto flex w-full max-w-md flex-col items-center gap-2.5 px-4 pt-4'
+					onSubmit={form.handleSubmit(onSubmit)}
 				>
 					<FormField
-						name='phoneOrEmail'
+						name='otp'
 						control={form.control}
 						render={({ field }) => (
 							<InputOTP
-								maxLength={4}
+								maxLength={6}
 								className='flex flex-col items-center justify-center'
+								{...field}
+								disabled={isPending}
 							>
 								<InputOTPGroup>
 									<InputOTPSlot index={0} />
 									<InputOTPSlot index={1} />
+									<InputOTPSlot index={2} />
 								</InputOTPGroup>
 								<InputOTPSeparator />
+								<InputOTPSeparator />
 								<InputOTPGroup>
-									<InputOTPSlot index={2} />
 									<InputOTPSlot index={3} />
+									<InputOTPSlot index={4} />
+									<InputOTPSlot index={5} />
 								</InputOTPGroup>
 							</InputOTP>
 						)}

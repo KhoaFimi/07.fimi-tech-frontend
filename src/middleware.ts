@@ -1,17 +1,14 @@
-import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
 const authRoutes = ['/auth/register', '/auth/login']
-const protectedRoutes = ['/report', '/campaign']
+const protectedRoutes = ['dashboard/report', 'dashboard/campaign']
 
 export default async function middleware(req: NextRequest) {
 	const path = req.nextUrl.pathname
 	const isProtectedRoute = protectedRoutes.includes(path)
 	const isAuthRoute = authRoutes.includes(path)
 
-	const cookieStore = await cookies()
-
-	const accessToken = cookieStore.get('access-token')?.value
+	const accessToken = req.headers.get('authorization')?.split(' ')[1]
 
 	if (isProtectedRoute && !accessToken) {
 		return NextResponse.redirect(new URL('/auth/login', req.nextUrl))
@@ -20,9 +17,9 @@ export default async function middleware(req: NextRequest) {
 	if (
 		isAuthRoute &&
 		accessToken &&
-		!req.nextUrl.pathname.startsWith('/campaign')
+		!req.nextUrl.pathname.startsWith('/dashboard/campaign')
 	) {
-		return NextResponse.redirect(new URL('/campaign', req.nextUrl))
+		return NextResponse.redirect(new URL('/dashboard/campaign', req.nextUrl))
 	}
 
 	return NextResponse.next()

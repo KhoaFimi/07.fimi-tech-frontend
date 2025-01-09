@@ -18,7 +18,7 @@ import {
 	FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { checkLegitUser } from '@/modules/auth/actions/check-legit-user'
+import { forgotPassword } from '@/modules/auth/actions/forgot-password'
 import { FormWrapper } from '@/modules/auth/components/form/form-wrapper'
 import {
 	ForgotPasswordSchema,
@@ -34,10 +34,9 @@ const ForgotPasswordForm = () => {
 	})
 
 	const [error, setError] = useState<string | undefined>(undefined)
-
-	const { isPending, mutate } = useMutation({
+	const { isPending, mutate: onOTP } = useMutation({
 		mutationFn: async (values: ForgotPasswordSchema) =>
-			await checkLegitUser(values),
+			await forgotPassword(values),
 		onSuccess: data => {
 			if (data.error) {
 				setError(data.error)
@@ -46,7 +45,7 @@ const ForgotPasswordForm = () => {
 	})
 
 	const onSubmit = (values: ForgotPasswordSchema) => {
-		mutate(values)
+		onOTP(values)
 	}
 
 	return (
@@ -101,7 +100,7 @@ const ForgotPasswordForm = () => {
 			<p className='px-2 py-2.5 text-xs'>
 				Bạn đã có mã giới thiệu{' '}
 				<span className='font-semibold text-primary transition hover:underline'>
-					<Link href={'/login'}>Đăng nhập</Link>
+					<Link href={'/auth/login'}>Đăng nhập</Link>
 				</span>
 			</p>
 		</FormWrapper>
