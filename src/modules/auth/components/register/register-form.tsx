@@ -34,8 +34,7 @@ const RegisterForm = () => {
 			phone: '',
 			password: '',
 			rePassword: '',
-			tnc: true,
-			platformCode: 'FIMI'
+			tnc: true
 		}
 	})
 	const [error, setError] = useState<string | undefined>(undefined)

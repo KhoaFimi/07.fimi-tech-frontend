@@ -79,6 +79,7 @@ const ResetPasswordForm = () => {
 								</FormLabel>
 								<FormControl>
 									<Input
+										type='password'
 										{...field}
 										disabled={isPending}
 										className='border border-primary text-xs caret-primary focus-visible:outline-none focus-visible:ring-0'
@@ -119,39 +120,33 @@ const ResetPasswordForm = () => {
 						<div>
 							<h5 className='text-center font-bold'>Nhập Mã OTP</h5>
 							<Form {...form}>
-								<form
-									autoComplete='autocomplete_off_randString'
-									className='mx-auto flex w-full max-w-md flex-col items-center gap-2.5 px-4 pt-4'
-									onSubmit={form.handleSubmit(onSubmit)}
-								>
-									<FormField
-										name='otp'
-										control={form.control}
-										render={({ field }) => (
-											<InputOTP
-												maxLength={6}
-												className='flex flex-col items-center justify-center'
-												{...field}
-												disabled={isPending}
-											>
-												<InputOTPGroup>
-													<InputOTPSlot index={0} />
-													<InputOTPSlot index={1} />
-													<InputOTPSlot index={2} />
-												</InputOTPGroup>
-												<InputOTPSeparator />
-												<InputOTPSeparator />
-												<InputOTPGroup>
-													<InputOTPSlot index={3} />
-													<InputOTPSlot index={4} />
-													<InputOTPSlot index={5} />
-												</InputOTPGroup>
-											</InputOTP>
-										)}
-									/>
+								<FormField
+									name='otp'
+									control={form.control}
+									render={({ field }) => (
+										<InputOTP
+											maxLength={6}
+											className='flex flex-col'
+											{...field}
+											disabled={isPending}
+										>
+											<InputOTPGroup className='mx-auto'>
+												<InputOTPSlot index={0} />
+												<InputOTPSlot index={1} />
+												<InputOTPSlot index={2} />
+											</InputOTPGroup>
+											<InputOTPSeparator />
+											<InputOTPSeparator />
+											<InputOTPGroup className='mx-auto'>
+												<InputOTPSlot index={3} />
+												<InputOTPSlot index={4} />
+												<InputOTPSlot index={5} />
+											</InputOTPGroup>
+										</InputOTP>
+									)}
+								/>
 
-									<FormError message={error} />
-								</form>
+								<FormError message={error} />
 							</Form>
 						</div>
 					</div>

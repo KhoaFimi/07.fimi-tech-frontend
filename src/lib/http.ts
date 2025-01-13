@@ -111,7 +111,7 @@ export const http = {
 	},
 	put: async <TRes = any, TReq = any>(
 		url: string,
-		body: TReq,
+		body?: TReq,
 		options?: AxiosRequestConfig<any>
 	) => {
 		try {

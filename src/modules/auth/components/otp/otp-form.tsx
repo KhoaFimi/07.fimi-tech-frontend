@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { Loader2, ShieldCheck } from 'lucide-react'
 import { useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { FormError } from '@/components/form-response'
@@ -13,16 +13,20 @@ import { Form, FormField } from '@/components/ui/form'
 import {
 	InputOTP,
 	InputOTPGroup,
-	InputOTPSeparator,
 	InputOTPSlot
 } from '@/components/ui/input-otp'
 import { otp } from '@/modules/auth/actions/otp'
+import { resetOtp } from '@/modules/auth/actions/reset-otp'
 import { FormWrapper } from '@/modules/auth/components/form/form-wrapper'
 import { OtpSchema, otpSchema } from '@/modules/auth/schemas/otp.schema'
+import { ResetOtpSchema } from '@/modules/auth/schemas/resetOtp.schema'
 
 const OTPForm = () => {
 	const searchParams = useSearchParams()
 	const [error, setError] = useState<string | undefined>(undefined)
+	const [timer, setTimer] = useState(600)
+	const [canResend, setCanResend] = useState(false)
+
 	const form = useForm<OtpSchema>({
 		resolver: zodResolver(otpSchema),
 		defaultValues: {
@@ -31,7 +35,7 @@ const OTPForm = () => {
 		}
 	})
 
-	const { isPending, mutate: onOTP } = useMutation({
+	const { isPending: isPendingOTP, mutate: onOTP } = useMutation({
 		mutationFn: async (values: OtpSchema) => await otp(values),
 		onSuccess: data => {
 			if (data.error) {
@@ -40,8 +44,40 @@ const OTPForm = () => {
 		}
 	})
 
+	const { isPending: isPendingResend, mutate: onResendOTP } = useMutation({
+		mutationFn: async (values: ResetOtpSchema) => {
+			const body = {
+				...values,
+				verificationKey: searchParams.get('key') ?? ''
+			}
+			return await resetOtp(body)
+		},
+		onSuccess: data => {
+			if (data?.error) {
+				setError(data?.error)
+			} else {
+				setTimer(600)
+			}
+		}
+	})
+
+	useEffect(() => {
+		if (timer > 0) {
+			const interval = setInterval(() => {
+				setTimer(prevTimer => prevTimer - 1)
+			}, 10)
+			return () => clearInterval(interval)
+		} else {
+			setCanResend(true)
+		}
+	}, [timer])
+
 	const onSubmit = (values: OtpSchema) => {
 		onOTP(values)
+	}
+
+	const reOnSubmit = (values: ResetOtpSchema) => {
+		onResendOTP(values)
 	}
 
 	return (
@@ -68,16 +104,12 @@ const OTPForm = () => {
 								maxLength={6}
 								className='flex flex-col items-center justify-center'
 								{...field}
-								disabled={isPending}
+								disabled={isPendingOTP}
 							>
 								<InputOTPGroup>
 									<InputOTPSlot index={0} />
 									<InputOTPSlot index={1} />
 									<InputOTPSlot index={2} />
-								</InputOTPGroup>
-								<InputOTPSeparator />
-								<InputOTPSeparator />
-								<InputOTPGroup>
 									<InputOTPSlot index={3} />
 									<InputOTPSlot index={4} />
 									<InputOTPSlot index={5} />
@@ -91,12 +123,31 @@ const OTPForm = () => {
 					<Button
 						type='submit'
 						size='sm'
-						disabled={isPending}
+						disabled={isPendingOTP}
 						className='mt-6 items-center gap-4 bg-gradient-to-tr from-primary from-30% to-secondary text-xs font-bold'
 					>
-						{isPending && <Loader2 className='size-5 animate-spin' />}
+						{isPendingOTP && <Loader2 className='size-5 animate-spin' />}
 						Gửi MÃ OTP
 					</Button>
+
+					{canResend ? (
+						<Button
+							onSubmit={form.handleSubmit(reOnSubmit)}
+							type='button'
+							disabled={isPendingResend}
+						>
+							{isPendingResend ? (
+								<Loader2 className='size-4 animate-spin' />
+							) : (
+								'Gửi Lại OTP'
+							)}
+						</Button>
+					) : (
+						<p>
+							Gửi lại OTP sau {Math.floor(timer / 60)}:
+							{String(timer % 60).padStart(2, '0')}
+						</p>
+					)}
 				</form>
 			</Form>
 		</FormWrapper>

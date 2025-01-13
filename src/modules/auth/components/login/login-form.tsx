@@ -36,6 +36,8 @@ const LoginForm = () => {
 	const { isPending, mutate: onOTP } = useMutation({
 		mutationFn: async (values: LoginSchema) => await login(values),
 		onSuccess: data => {
+			sessionStorage.setItem('accessToken', data.data?.accessToken)
+			console.log(data.data?.accessToken)
 			if (data.error) {
 				setError(data.error)
 			} else {
