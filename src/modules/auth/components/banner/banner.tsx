@@ -2,7 +2,7 @@
 
 import * as Avatar from '@radix-ui/react-avatar'
 import { useMutation } from '@tanstack/react-query'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { logout } from '@/modules/auth/actions/logout'
 
@@ -12,8 +12,16 @@ interface BannerProps {
 }
 
 const Banner: React.FC<BannerProps> = ({ avatarUrl, userName }) => {
-	const accessToken = sessionStorage.getItem('accessToken')
+	const [accessToken, setAccessToken] = useState<string | null>(null)
 	const [, setError] = useState<string | undefined>(undefined)
+
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const token = sessionStorage.getItem('accessToken')
+			setAccessToken(token)
+		}
+	}, [])
+
 	const { isPending, mutate: onLogout } = useMutation({
 		mutationFn: async () => await logout(accessToken),
 		onSuccess: data => {
@@ -22,7 +30,6 @@ const Banner: React.FC<BannerProps> = ({ avatarUrl, userName }) => {
 			}
 		}
 	})
-
 	const onSubmit = () => {
 		onLogout()
 	}

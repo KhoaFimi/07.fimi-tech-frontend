@@ -41,7 +41,7 @@ const LoginForm = () => {
 			if (data.error) {
 				setError(data.error)
 			} else {
-				router.push('/dashboard/campain')
+				router.push('/dashboard/campaign')
 			}
 		}
 	})

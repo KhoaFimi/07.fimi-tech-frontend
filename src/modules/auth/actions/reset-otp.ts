@@ -7,9 +7,14 @@ import {
 } from '@/modules/auth/schemas/resetOtp.schema'
 
 export const resetOtp = async (values: ResetOtpSchema) => {
-	const _validateData = resetOtpSchema.safeParse(values)
+	const validateData = resetOtpSchema.safeParse(values)
+	const param = validateData.data
 
-	const response = await http.get('auth/new-otp')
+	const response = await http.get('auth/new-otp', {
+		params: {
+			key: param?.verificationKey
+		}
+	})
 
 	if (response.type === 'error') {
 		console.log(response)

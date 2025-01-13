@@ -23,6 +23,7 @@ import { ResetOtpSchema } from '@/modules/auth/schemas/resetOtp.schema'
 
 const OTPForm = () => {
 	const searchParams = useSearchParams()
+	const verificationKey = searchParams.get('key') ?? ''
 	const [error, setError] = useState<string | undefined>(undefined)
 	const [timer, setTimer] = useState(600)
 	const [canResend, setCanResend] = useState(false)
@@ -30,8 +31,8 @@ const OTPForm = () => {
 	const form = useForm<OtpSchema>({
 		resolver: zodResolver(otpSchema),
 		defaultValues: {
-			verificationKey: searchParams.get('key') ?? '',
-			otp: ''
+			otp: '',
+			verificationKey: verificationKey
 		}
 	})
 
@@ -45,18 +46,10 @@ const OTPForm = () => {
 	})
 
 	const { isPending: isPendingResend, mutate: onResendOTP } = useMutation({
-		mutationFn: async (values: ResetOtpSchema) => {
-			const body = {
-				...values,
-				verificationKey: searchParams.get('key') ?? ''
-			}
-			return await resetOtp(body)
-		},
+		mutationFn: async (values: ResetOtpSchema) => await resetOtp(values),
 		onSuccess: data => {
 			if (data?.error) {
 				setError(data?.error)
-			} else {
-				setTimer(600)
 			}
 		}
 	})
@@ -65,7 +58,7 @@ const OTPForm = () => {
 		if (timer > 0) {
 			const interval = setInterval(() => {
 				setTimer(prevTimer => prevTimer - 1)
-			}, 10)
+			}, 1000)
 			return () => clearInterval(interval)
 		} else {
 			setCanResend(true)
@@ -78,6 +71,8 @@ const OTPForm = () => {
 
 	const reOnSubmit = (values: ResetOtpSchema) => {
 		onResendOTP(values)
+		setTimer(600)
+		setCanResend(false)
 	}
 
 	return (
@@ -132,14 +127,18 @@ const OTPForm = () => {
 
 					{canResend ? (
 						<Button
-							onSubmit={form.handleSubmit(reOnSubmit)}
+							onClick={e => {
+								e.preventDefault()
+								reOnSubmit({ verificationKey })
+							}}
 							type='button'
 							disabled={isPendingResend}
+							variant={'link'}
 						>
 							{isPendingResend ? (
-								<Loader2 className='size-4 animate-spin' />
+								<Loader2 className='size-2 animate-spin' />
 							) : (
-								'Gửi Lại OTP'
+								'Gửi Lại'
 							)}
 						</Button>
 					) : (
