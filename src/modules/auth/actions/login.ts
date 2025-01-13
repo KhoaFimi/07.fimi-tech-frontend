@@ -20,7 +20,6 @@ export const login = async (values: LoginSchema) => {
 	const body = validateData.data
 
 	const response = await http.post<IResponse>('auth/login', body)
-	console.log(response.payload.data)
 
 	if (response.type === 'error') {
 		return { error: response.payload.message }

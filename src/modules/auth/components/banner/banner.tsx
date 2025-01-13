@@ -1,7 +1,10 @@
 'use client'
 
 import * as Avatar from '@radix-ui/react-avatar'
-import React from 'react'
+import { useMutation } from '@tanstack/react-query'
+import React, { useState } from 'react'
+
+import { logout } from '@/modules/auth/actions/logout'
 
 interface BannerProps {
 	avatarUrl: string
@@ -9,8 +12,19 @@ interface BannerProps {
 }
 
 const Banner: React.FC<BannerProps> = ({ avatarUrl, userName }) => {
-	const handleLogout = () => {
-		console.log('User logged out')
+	const accessToken = sessionStorage.getItem('accessToken')
+	const [, setError] = useState<string | undefined>(undefined)
+	const { isPending, mutate: onLogout } = useMutation({
+		mutationFn: async () => await logout(accessToken),
+		onSuccess: data => {
+			if (data.error) {
+				setError(data.error)
+			}
+		}
+	})
+
+	const onSubmit = () => {
+		onLogout()
 	}
 
 	return (
@@ -34,7 +48,8 @@ const Banner: React.FC<BannerProps> = ({ avatarUrl, userName }) => {
 					<p className='text-[14px] font-semibold text-black'>{userName}</p>
 				</div>
 				<button
-					onClick={handleLogout}
+					disabled={isPending}
+					onClick={onSubmit}
 					className='h-[25px] w-[80px] rounded-lg bg-primary px-4 text-[12px] font-bold text-white transition-colors'
 				>
 					Log Out

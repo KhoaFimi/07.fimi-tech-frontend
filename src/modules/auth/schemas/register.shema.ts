@@ -19,8 +19,7 @@ export const registerSchema = z
 				message: 'Mật khẩu phải có 1 chữ số'
 			}),
 		rePassword: z.string().min(1, { message: 'xác nhân password' }),
-		tnc: z.boolean().default(true),
-		platformCode: z.string()
+		tnc: z.boolean().default(true)
 	})
 	.refine(({ password, rePassword }) => password === rePassword, {
 		message: 'Mật khẩu không khớp',
