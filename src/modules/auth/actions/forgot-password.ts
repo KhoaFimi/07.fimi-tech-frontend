@@ -18,7 +18,7 @@ export const forgotPassword = async (values: ForgotPasswordSchema) => {
 
 	const body = validateData.data
 
-	const response = await http.post('auth/forgot-password', body)
+	const response = await http.post('accounts/forgot-password', body)
 
 	if (response.type === 'error') {
 		return { error: response.payload.message }

@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import ResetPassword from '@/modules/auth/components/reset-password/reset-password-form'
 
@@ -27,7 +27,10 @@ const ResetPasswordPage = () => {
 				</Link>
 			</div>
 			<div className='mb-20'>
-				<ResetPassword />
+				<Suspense>
+					{' '}
+					<ResetPassword />
+				</Suspense>
 			</div>
 		</div>
 	)

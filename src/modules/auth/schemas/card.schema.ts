@@ -1,10 +1,15 @@
 import { z } from 'zod'
 
-import { PRODUCT_CATEGORY } from '@/constant/enum'
+import { PRODUCT_CATEGORY_DESCRIPTION } from '../../../../category'
 
 export const productSchema = z.object({
 	id: z.string(),
-	category: z.nativeEnum(PRODUCT_CATEGORY),
+	category: z.enum(
+		Object.keys(PRODUCT_CATEGORY_DESCRIPTION).map(key => key.toLowerCase()) as [
+			string,
+			...string[]
+		]
+	),
 	name: z.string(),
 	advertiser: z.string(),
 	link: z.string(),

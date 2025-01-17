@@ -20,7 +20,6 @@ import { Input } from '@/components/ui/input'
 import {
 	InputOTP,
 	InputOTPGroup,
-	InputOTPSeparator,
 	InputOTPSlot
 } from '@/components/ui/input-otp'
 import { resetPassword } from '@/modules/auth/actions/reset-password'
@@ -134,10 +133,6 @@ const ResetPasswordForm = () => {
 												<InputOTPSlot index={0} />
 												<InputOTPSlot index={1} />
 												<InputOTPSlot index={2} />
-											</InputOTPGroup>
-											<InputOTPSeparator />
-											<InputOTPSeparator />
-											<InputOTPGroup className='mx-auto'>
 												<InputOTPSlot index={3} />
 												<InputOTPSlot index={4} />
 												<InputOTPSlot index={5} />

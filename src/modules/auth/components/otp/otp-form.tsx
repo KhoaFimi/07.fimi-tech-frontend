@@ -122,7 +122,7 @@ const OTPForm = () => {
 						className='mt-6 items-center gap-4 bg-gradient-to-tr from-primary from-30% to-secondary text-xs font-bold'
 					>
 						{isPendingOTP && <Loader2 className='size-5 animate-spin' />}
-						Gửi MÃ OTP
+						Gửi mã OTP
 					</Button>
 
 					{canResend ? (

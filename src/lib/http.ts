@@ -4,7 +4,8 @@ import { config } from '@/lib/config'
 import { ErrorCode, SuccessCode } from '@/types'
 
 export const request = axios.create({
-	baseURL: 'http://localhost:8080/api/',
+	baseURL: config.API_URL,
+	// baseURL: 'http://localhost:8080/api/',
 	headers: {
 		'Access-Control-Allow-Origin': '*',
 		'Content-Type': 'application/json',

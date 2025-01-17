@@ -11,7 +11,7 @@ export const logout = async (accessToken: any) => {
 	console.log(decoded.sub)
 
 	if (decoded) {
-		const response = await http.put(`auth/logout/${decoded.sub}`)
+		const response = await http.put(`auth/sign-out/${decoded.sub}`)
 
 		if (response.type === 'error') {
 			return { error: response.payload.message }

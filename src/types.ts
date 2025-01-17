@@ -63,15 +63,12 @@ export type BankType = {
 export type Report = {
 	id: string
 	createdAt: string
-	publisherCode: string
 	campaignCode: string
+	publisherCode: string
 	customerName: string
-	customerPhone: string
-	customerEmail: string
-	customerProvince: string
 	status: 'APPROVED' | 'REJECTED' | 'PENDING'
 	commision: number
-	paymentStatus: 'PAID' | 'REMAIN'
+	managmentCommission: number
 	managerCode: string
 }
 

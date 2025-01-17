@@ -50,7 +50,7 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 							<AccordionContent>
 								<ul className='space-y-1.5 text-base'>
 									<li className='flex items-start gap-1'>
-										<User className='size-4' />
+										<User className='mt-1 size-4' />
 										<p>
 											Đơn cá nhân:{' '}
 											<span className='font-semibold text-primary'>
@@ -59,7 +59,7 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 										</p>
 									</li>
 									<li className='flex items-start gap-1 text-base'>
-										<Users className='size-4' />
+										<Users className='mt-1 size-4' />
 										Đơn AM:{' '}
 										<span className='font-semibold text-primary'>
 											{order.amOrder}
@@ -75,7 +75,7 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 							<AccordionContent>
 								<ul className='space-y-1.5 text-base'>
 									<li className='flex items-start gap-1'>
-										<CheckCircle className='size-4 text-green-500' />
+										<CheckCircle className='mt-1 size-4 text-green-500' />
 										<p>
 											<span className='font-semibold text-green-500'>
 												{order.approved}
@@ -83,13 +83,13 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 										</p>
 									</li>
 									<li className='flex items-start gap-1'>
-										<Clock7 className='size-4 text-blue-500' />
+										<Clock7 className='mt-1 size-4 text-blue-500' />
 										<span className='font-semibold text-blue-500'>
 											{order.pending}
 										</span>{' '}
 									</li>
 									<li className='flex items-start gap-1'>
-										<Ban className='size-4 text-primary' />
+										<Ban className='mt-1 size-4 text-primary' />
 										<span className='font-semibold text-primary'>
 											{order.pending}
 										</span>{' '}
@@ -97,15 +97,15 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 								</ul>
 								<div className='mt-1 flex flex-col gap-y-1 rounded-md border p-2'>
 									<div className='flex items-start gap-0.5'>
-										<CheckCircle className='size-3' />
+										<CheckCircle className='mt-2 size-3' />
 										<p className='text-base'>: Ghi nhận hoa hồng</p>
 									</div>
 									<div className='flex items-start gap-0.5'>
-										<Clock7 className='size-3' />
+										<Clock7 className='mt-2 size-3' />
 										<p className='text-base'>: Chưa hoàn thành đơn</p>
 									</div>
 									<div className='flex items-start gap-0.5'>
-										<Ban className='size-3' />
+										<Ban className='mt-2 size-3' />
 										<p className='text-base'>: Từ chối</p>
 									</div>
 								</div>
@@ -136,7 +136,7 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 							<AccordionContent>
 								<ul className='space-y-1.5'>
 									<li className='flex items-start gap-1'>
-										<User className='size-4' />
+										<User className='mt-1 size-4' />
 										<p className='text-base'>
 											Cá nhân:{' '}
 											<span className='text-[0.8rem] font-semibold tracking-tight text-primary'>
@@ -148,9 +148,9 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 										</p>
 									</li>
 									<li className='flex items-start gap-1 text-base'>
-										<Users className='size-4' />
+										<Users className='mt-1 size-4' />
 										AM:{' '}
-										<span className='text-[0.8rem] font-semibold tracking-tight text-primary'>
+										<span className='pt-[2px] text-[0.8rem] font-semibold tracking-tight text-primary'>
 											{commision.am.toLocaleString('vi-VN', {
 												style: 'currency',
 												currency: 'VND'
@@ -189,11 +189,11 @@ const ReportPanel: FC<ReportPanelProps> = ({ order, commision }) => {
 								</ul>
 								<div className='mt-1 flex flex-col gap-y-1 rounded-md border p-2'>
 									<div className='flex items-start gap-0.5'>
-										<CheckCircle className='size-3' />
+										<CheckCircle className='mt-2 size-3' />
 										<p className='text-base'>: Đã thanh toán</p>
 									</div>
 									<div className='flex items-start gap-0.5'>
-										<Archive className='size-3' />
+										<Archive className='mt-2 size-3' />
 										<p className='text-base'>: Chưa thanh toán</p>
 									</div>
 								</div>

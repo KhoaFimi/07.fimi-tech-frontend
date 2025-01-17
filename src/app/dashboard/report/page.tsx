@@ -1,24 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import {
-	QueryObserverResult,
-	RefetchOptions,
-	useQuery
-} from '@tanstack/react-query'
-import React, { FC } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
 
 import { SidebarProvider } from '@/components/ui/sidebar'
+import { mockReportData } from '@/mockdata'
 import { getCampaignCode } from '@/modules/auth/actions/get-campaign-code'
+import { role } from '@/modules/auth/actions/role'
 import Banner from '@/modules/auth/components/banner/banner'
 import ManagmentReport from '@/modules/auth/components/report/index'
-import ReportPanel from '@/modules/auth/components/report/report-panel'
+import Example from '@/modules/auth/components/report/report1-panel'
 import AppSidebar from '@/modules/auth/components/sidebar/sidebar'
-import { ReportResponse } from '@/types'
 
-interface ReportScreenProps {
-	publisherCode: string
-}
 const initialData = [
 	{ id: '0', label: 'vpbstepup', value: 'vpbstepup' },
 	{ id: '1', label: 'vpblady', value: 'vpblady' },
@@ -39,29 +32,31 @@ const initialData = [
 	{ id: '16', label: 'vpbankneo', value: 'vpbankneo' }
 ]
 
-const defaultOrder = {
-	total: 0,
-	amOrder: 0,
-	pubOrder: 0,
-	approved: 0,
-	rejected: 0,
-	pending: 0
-}
-
-const defaultCommision = {
-	pub: 0,
-	am: 0,
-	total: 0,
-	remain: 0,
-	paid: 0
-}
-
-const ReportPage: FC<ReportScreenProps> = ({ publisherCode }) => {
+const ReportPage = () => {
 	const { data: campaignData } = useQuery({
 		queryKey: ['campaign-codes'],
 		queryFn: getCampaignCode,
 		initialData
 	})
+
+	const [userId, setUserId] = useState<string | null>(null)
+	const [, setSelectedCategory] = useState<string | null>(null)
+	const handleCategoryChange = (value: string) => {
+		setSelectedCategory(value)
+	}
+	useEffect(() => {
+		if (typeof window !== 'undefined') {
+			const token = sessionStorage.getItem('accessToken')
+			if (token) {
+				role(token).then(response => {
+					if (response.id !== undefined) {
+						setUserId(response.id)
+					}
+				})
+			}
+		}
+	}, [])
+
 	return (
 		<div className='relative flex h-screen w-screen overflow-hidden'>
 			<SidebarProvider>
@@ -71,28 +66,19 @@ const ReportPage: FC<ReportScreenProps> = ({ publisherCode }) => {
 						<Banner
 							avatarUrl='/card/anhDaiDien.jfif'
 							userName='Đăng Khoa'
+							onCategoryChange={handleCategoryChange}
+							showSearch={false}
 						/>
 					</div>
-					<div className='mt-12 flex-1 overflow-y-auto p-4 md:ml-[10px]'>
-						<div className='flex flex-col space-y-12'>
-							<ReportPanel
-								order={{
-									...defaultOrder
-								}}
-								commision={{
-									...defaultCommision
-								}}
-							/>
+					<div className='mt-16 flex-1 overflow-y-auto p-4 md:ml-[10px]'>
+						<Example />
+						<div className='mt-[40px] flex flex-col space-y-12'>
 							<ManagmentReport
-								publisherCode={publisherCode}
+								publisherCode={userId!}
 								campaignData={campaignData ?? []}
-								data={[]}
+								data={mockReportData}
 								isPending={false}
-								refetch={function (
-									options?: RefetchOptions
-								): Promise<QueryObserverResult<ReportResponse, Error>> {
-									throw new Error('Function not implemented.')
-								}}
+								refetch={() => Promise.reject('Function not implemented')}
 							/>
 						</div>
 					</div>

@@ -13,7 +13,6 @@ const protectedRoutes = ['/dashboard/report', '/dashboard/campaign']
 
 export default async function middleware(req: NextRequest) {
 	const path = req.nextUrl.pathname
-	console.log('Requested path:', path)
 
 	const cookieStore = await cookies()
 	const refreshToken = cookieStore.get('refreshToken')?.value

@@ -26,13 +26,13 @@ export enum NATIVE_COLUMNS {
 	paymentStatus = 'Tình trạng thanh toán'
 }
 
-export enum PRODUCT_CATEGORY {
-	all = 'ALL',
-	creditCard = 'CREDIT_CARD',
-	paymentAccount = 'PAYMENT_ACCOUNT',
-	recruitment = 'RECRUITMENT',
-	loan = 'LOAN'
-}
+// export enum PRODUCT_CATEGORY {
+// 	all = 'ALL',
+// 	creditCard = 'CREDIT_CARD',
+// 	paymentAccount = 'PAYMENT_ACCOUNT',
+// 	recruitment = 'RECRUITMENT',
+// 	loan = 'LOAN'
+// }
 
 export enum PRODUCT_CATEGORY_DESSRIPTION {
 	all = 'Tất cả',

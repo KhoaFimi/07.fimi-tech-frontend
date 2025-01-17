@@ -10,7 +10,7 @@ export const resetOtp = async (values: ResetOtpSchema) => {
 	const validateData = resetOtpSchema.safeParse(values)
 	const param = validateData.data
 
-	const response = await http.get('auth/new-otp', {
+	const response = await http.get('accounts/new-otp/{key}', {
 		params: {
 			key: param?.verificationKey
 		}

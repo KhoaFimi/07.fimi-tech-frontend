@@ -18,7 +18,8 @@ export const register = async (values: RegisterSchema) => {
 
 	const body = validateData.data
 
-	const response = await http.post('auth/register', body)
+	const response = await http.post('auth/sign-up', body)
+	console.log(response)
 
 	if (response.type === 'error') {
 		return { error: response.payload.message }

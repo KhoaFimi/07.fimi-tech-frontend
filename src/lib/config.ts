@@ -12,7 +12,7 @@ export const envSchema = z.object({
 	BASE_URL: z.string().url().default('http://localhost:3000'),
 	API_KEY: z.string(),
 	PARTNER_CODE: z.string(),
-	NEXT_PUBLIC_API_ENDPOINT: z.string().default('http://localhost:8080/api/')
+	API_URL: z.string()
 })
 
 declare global {

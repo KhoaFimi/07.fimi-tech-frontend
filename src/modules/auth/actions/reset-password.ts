@@ -7,7 +7,7 @@ import { http } from '@/lib/http'
 export const resetPassword = async (validationData: any) => {
 	const body = validationData
 
-	const response = await http.post('auth/reset-password', body)
+	const response = await http.post('accounts/reset-password', body)
 
 	if (response.type === 'error') {
 		console.log(response)

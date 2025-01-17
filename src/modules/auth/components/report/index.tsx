@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query'
 import {
 	ColumnFiltersState,
@@ -95,7 +96,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 		getPaginationRowModel: getPaginationRowModel(),
 		getFilteredRowModel: getFilteredRowModel(),
 		onColumnVisibilityChange: setColumnVisibility,
-		onColumnFiltersChange: setColumnFilters,
+		// onColumnFiltersChange: setColumnFilters,
 		state: {
 			sorting,
 			columnFilters,
@@ -125,17 +126,14 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 			{/* Filter and search tool */}
 			<div
 				className={cn(
-					'grid w-full grid-cols-2 justify-center gap-2 lg:grid-cols-4',
-					{
-						['hidden']: data.length === 0
-					}
+					'mt-[-20px] grid w-full grid-cols-2 justify-center gap-2 lg:grid-cols-4'
 				)}
 			>
 				{/* Filter by status and payment status */}
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button
-							size='sm'
+							size='lg'
 							className='justify-start border-primary font-semibold text-foreground/70'
 							variant='outline'
 						>
@@ -160,25 +158,42 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 									value='all'
 									id='r1'
 								/>
-								<Label htmlFor='r1'>Tất cả</Label>
+								<Label
+									htmlFor='r1'
+									className='text-base'
+								>
+									Tất cả
+								</Label>
 							</div>
 							<div className='flex items-center space-x-2'>
 								<RadioGroupItem
 									value='am'
 									id='r2'
 								/>
-								<Label htmlFor='r2'>Đơn AM</Label>
+								<Label
+									htmlFor='r2'
+									className='text-base'
+								>
+									Đơn AM
+								</Label>
 							</div>
 							<div className='flex items-center space-x-2'>
 								<RadioGroupItem
 									value='pub'
 									id='r3'
 								/>
-								<Label htmlFor='r3'>Đơn cá nhân</Label>
+								<Label
+									htmlFor='r3'
+									className='text-base'
+								>
+									Đơn cá nhân
+								</Label>
 							</div>
 						</RadioGroup>
 						<DropdownMenuSeparator />
-						<DropdownMenuLabel>Trạng thái đơn</DropdownMenuLabel>
+						<DropdownMenuLabel className='text-base'>
+							Trạng thái đơn
+						</DropdownMenuLabel>
 						<div className='flex flex-col gap-2 px-2 pt-2'>
 							<div className='flex items-center gap-2'>
 								<Checkbox
@@ -194,7 +209,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 										)
 									}}
 								/>
-								<Label>Ghi nhận hoa hồng</Label>
+								<Label className='text-base'>Ghi nhận hoa hồng</Label>
 							</div>
 							<div className='flex items-center gap-2'>
 								<Checkbox
@@ -210,7 +225,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 										)
 									}}
 								/>
-								<Label>Chưa hoàn tất đơn</Label>
+								<Label className='text-base'>Chưa hoàn tất đơn</Label>
 							</div>
 							<div className='flex items-center gap-2'>
 								<Checkbox
@@ -226,7 +241,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 										)
 									}}
 								/>
-								<Label>Từ chối</Label>
+								<Label className='text-base'>Từ chối</Label>
 							</div>
 						</div>
 					</DropdownMenuContent>
@@ -236,7 +251,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button
-							size='sm'
+							size='lg'
 							className='justify-start border-primary font-semibold text-foreground/70'
 							variant='outline'
 						>
@@ -244,7 +259,9 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 						</Button>
 					</DropdownMenuTrigger>
 					<DropdownMenuContent className='w-80'>
-						<DropdownMenuLabel>Chiến dịch</DropdownMenuLabel>
+						<DropdownMenuLabel className='text-base'>
+							Chiến dịch
+						</DropdownMenuLabel>
 						<div className='flex flex-col gap-2'>
 							<div className='flex items-center gap-2'>
 								<Button
@@ -277,14 +294,14 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 														...state,
 														campaign.value
 													])
-													return
+												} else {
+													setCampaignFilterValue(state =>
+														state.filter(value => value !== campaign.value)
+													)
 												}
-
-												setStatusFilterValue(state =>
-													state.filter(status => status !== campaign.value)
-												)
 											}}
 										/>
+
 										<Label
 											htmlFor={campaign.value}
 											className='cursor-pointer'
@@ -302,7 +319,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 				<Popover>
 					<PopoverTrigger asChild>
 						<Button
-							size='sm'
+							size='lg'
 							className='justify-start border-primary font-semibold text-foreground/70'
 							variant='outline'
 						>
@@ -383,7 +400,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button
-							size='sm'
+							size='lg'
 							variant='outline'
 							className='justify-start border-primary font-semibold text-foreground/70'
 						>
@@ -423,7 +440,12 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 								{headerGroup.headers
 									.filter(header => header.id !== 'managerCode')
 									.map(header => (
-										<TableHead key={header.id}>
+										<TableHead
+											key={header.id}
+											className='text-lg'
+										>
+											{' '}
+											{/* Tăng cỡ chữ tiêu đề */}
 											<div className='flex flex-col gap-1'>
 												{header.isPlaceholder
 													? null
@@ -458,7 +480,11 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 										.getVisibleCells()
 										.filter(cell => cell.column.id !== 'managerCode')
 										.map(cell => (
-											<TableCell key={cell.id}>
+											<TableCell
+												key={cell.id}
+												className='font-semibold'
+											>
+												{' '}
 												{flexRender(
 													cell.column.columnDef.cell,
 													cell.getContext()
@@ -471,7 +497,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 							<TableRow>
 								<TableCell
 									colSpan={managmentReportColumns.length}
-									className='h-24 text-center'
+									className='h-24 text-center text-lg'
 								>
 									Đang tải báo cáo
 								</TableCell>
@@ -480,7 +506,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 							<TableRow>
 								<TableCell
 									colSpan={managmentReportColumns.length}
-									className='h-24 text-center'
+									className='h-24 text-center text-lg'
 								>
 									Không tìm thấy kết quả khả dụng, vui lòng kiểm tra lại mã giới
 									thiệu.
@@ -490,7 +516,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 							<TableRow>
 								<TableCell
 									colSpan={managmentReportColumns.length}
-									className='h-24 text-center'
+									className='h-24 text-center text-lg'
 								>
 									Không tìm thấy kết quả khả dụng
 								</TableCell>

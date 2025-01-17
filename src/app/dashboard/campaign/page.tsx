@@ -1,140 +1,470 @@
 'use client'
-import {
-	CircleDollarSign,
-	CreditCard,
-	HandCoins,
-	Package,
-	Users
-} from 'lucide-react'
-import React from 'react'
+
+import { useState } from 'react'
 
 import { SidebarProvider } from '@/components/ui/sidebar'
-import { PRODUCT_CATEGORY } from '@/constant/enum'
 import Banner from '@/modules/auth/components/banner/banner'
 import ListCard from '@/modules/auth/components/listCard/listCard'
 import AppSidebar from '@/modules/auth/components/sidebar/sidebar'
 
+import { PRODUCT_CATEGORY_DESCRIPTION } from '../../../../category'
+
 const Campain = () => {
 	const products = [
 		{
-			link: '/campaign/1',
 			id: '1',
-			category: PRODUCT_CATEGORY.creditCard,
+			category: PRODUCT_CATEGORY_DESCRIPTION.creditCard,
 			name: 'Thẻ tín dụng ACB',
 			advertiser: 'Ngân hàng ACB',
+			link: '/campaign/1',
 			show: {
-				image: 'VPBank_new.png',
+				image: 'vpblady.png',
 				income: '200,000 VND',
 				commision: '5%',
 				approvalTime: '2 ngày'
 			},
-			description: 'Thẻ tín dụng với ưu đãi hoàn tiền hấp dẫn.',
-			paymentTerm: 'Hàng tháng',
-			productOffer: 'Ưu đãi đặc biệt',
+			productOffer: [
+				{
+					summary: 'Ưu đãi đặc biệt',
+					offer: ['Miễn phí thường niên', 'Tích điểm đổi quà']
+				}
+			],
 			customerRequirement: 'Yêu cầu xác minh thu nhập',
 			supportArea: 'Toàn quốc',
-			requiredDocuments: 'Chứng minh thư, Hộ khẩu',
+			creditBackground: 'Không yêu cầu',
+			workBackground: 'Không yêu cầu',
+			income: '10 triệu VND/tháng',
+			cardLimit: '100 triệu VND',
+			dailyCashLimit: '10 triệu VND',
+			cardValidTime: '3 năm',
+			paymentTerm: 'Hàng tháng',
+			requiredDocuments: 'CMND, Sổ hộ khẩu',
+			approvalTime: '2 ngày',
 			finalResultTime: '5 ngày',
-			commisionPolicy: '5% trên mỗi giao dịch'
+			commisionPolicy: {
+				status: 'Active',
+				description: 'Chính sách hoa hồng hấp dẫn',
+				commision: ['5% cho giao dịch đầu tiên'],
+				note: 'Áp dụng với khách hàng mới'
+			},
+			recognitionRules: {
+				summary: 'Quy tắc ghi nhận',
+				rules: ['Đăng ký hợp lệ', 'Xác minh thông tin đầy đủ'],
+				note: 'Không áp dụng cho khách hàng đã có thẻ'
+			},
+			registrationProcess: ['Đăng ký online', 'Xác minh thông tin'],
+			rejectReason: ['Không đủ điều kiện tài chính'],
+			unqualifiedRecords: ['Thiếu giấy tờ tùy thân']
 		},
 		{
-			link: '/campaign/2',
 			id: '2',
-			category: PRODUCT_CATEGORY.paymentAccount,
-			name: 'VP Lady',
-			advertiser: 'VP Lady',
+			category: PRODUCT_CATEGORY_DESCRIPTION.creditCard,
+			name: 'Thẻ tín dụng ACB',
+			advertiser: 'Ngân hàng ACB',
+			link: '/campaign/2',
 			show: {
-				image: 'VPBank_JCB.png',
-				income: '150,000 VND',
-				commision: '3%',
-				approvalTime: '1 ngày'
+				image: 'vpbgenz.png',
+				income: '200,000 VND',
+				commision: '5%',
+				approvalTime: '2 ngày'
 			},
-			description: 'Tài khoản thanh toán với lãi suất hấp dẫn.',
-			paymentTerm: 'Hàng tháng',
-			productOffer: 'Miễn phí giao dịch',
-			customerRequirement: 'Không yêu cầu thu nhập',
+			productOffer: [
+				{
+					summary: 'Ưu đãi đặc biệt',
+					offer: ['Miễn phí thường niên', 'Tích điểm đổi quà']
+				}
+			],
+			customerRequirement: 'Yêu cầu xác minh thu nhập',
 			supportArea: 'Toàn quốc',
+			creditBackground: 'Không yêu cầu',
+			workBackground: 'Không yêu cầu',
+			income: '10 triệu VND/tháng',
+			cardLimit: '100 triệu VND',
+			dailyCashLimit: '10 triệu VND',
+			cardValidTime: '3 năm',
+			paymentTerm: 'Hàng tháng',
 			requiredDocuments: 'CMND, Sổ hộ khẩu',
-			finalResultTime: '2 ngày',
-			commisionPolicy: '3% trên mỗi giao dịch'
+			approvalTime: '2 ngày',
+			finalResultTime: '5 ngày',
+			commisionPolicy: {
+				status: 'Active',
+				description: 'Chính sách hoa hồng hấp dẫn',
+				commision: ['5% cho giao dịch đầu tiên'],
+				note: 'Áp dụng với khách hàng mới'
+			},
+			recognitionRules: {
+				summary: 'Quy tắc ghi nhận',
+				rules: ['Đăng ký hợp lệ', 'Xác minh thông tin đầy đủ'],
+				note: 'Không áp dụng cho khách hàng đã có thẻ'
+			},
+			registrationProcess: ['Đăng ký online', 'Xác minh thông tin'],
+			rejectReason: ['Không đủ điều kiện tài chính'],
+			unqualifiedRecords: ['Thiếu giấy tờ tùy thân']
 		},
 		{
-			link: '/campaign/3',
 			id: '3',
-			category: PRODUCT_CATEGORY.paymentAccount,
-			name: 'VP Lady',
-			advertiser: 'VP Lady',
+			category: PRODUCT_CATEGORY_DESCRIPTION.creditCard,
+			name: 'Thẻ tín dụng ACB',
+			advertiser: 'Ngân hàng ACB',
+			link: '/campaign/3',
 			show: {
-				image: 'VPBank_Lady.png',
-				income: '150,000 VND',
-				commision: '3%',
-				approvalTime: '1 ngày'
+				image: 'vpbstepup.png',
+				income: '200,000 VND',
+				commision: '5%',
+				approvalTime: '2 ngày'
 			},
-			description: 'Tài khoản thanh toán với lãi suất hấp dẫn.',
-			paymentTerm: 'Hàng tháng',
-			productOffer: 'Miễn phí giao dịch',
-			customerRequirement: 'Không yêu cầu thu nhập',
+			productOffer: [
+				{
+					summary: 'Ưu đãi đặc biệt',
+					offer: ['Miễn phí thường niên', 'Tích điểm đổi quà']
+				}
+			],
+			customerRequirement: 'Yêu cầu xác minh thu nhập',
 			supportArea: 'Toàn quốc',
+			creditBackground: 'Không yêu cầu',
+			workBackground: 'Không yêu cầu',
+			income: '10 triệu VND/tháng',
+			cardLimit: '100 triệu VND',
+			dailyCashLimit: '10 triệu VND',
+			cardValidTime: '3 năm',
+			paymentTerm: 'Hàng tháng',
 			requiredDocuments: 'CMND, Sổ hộ khẩu',
-			finalResultTime: '2 ngày',
-			commisionPolicy: '3% trên mỗi giao dịch'
+			approvalTime: '2 ngày',
+			finalResultTime: '5 ngày',
+			commisionPolicy: {
+				status: 'Active',
+				description: 'Chính sách hoa hồng hấp dẫn',
+				commision: ['5% cho giao dịch đầu tiên'],
+				note: 'Áp dụng với khách hàng mới'
+			},
+			recognitionRules: {
+				summary: 'Quy tắc ghi nhận',
+				rules: ['Đăng ký hợp lệ', 'Xác minh thông tin đầy đủ'],
+				note: 'Không áp dụng cho khách hàng đã có thẻ'
+			},
+			registrationProcess: ['Đăng ký online', 'Xác minh thông tin'],
+			rejectReason: ['Không đủ điều kiện tài chính'],
+			unqualifiedRecords: ['Thiếu giấy tờ tùy thân']
 		},
 		{
-			link: '/campaign/4',
 			id: '4',
-			category: PRODUCT_CATEGORY.paymentAccount,
-			name: 'VP Lady',
-			advertiser: 'VP Lady',
+			category: PRODUCT_CATEGORY_DESCRIPTION.creditCard,
+			name: 'Thẻ tín dụng ACB',
+			advertiser: 'Ngân hàng ACB',
+			link: '/campaign/4',
 			show: {
-				image: 'VPBank_Prime.png',
-				income: '150,000 VND',
-				commision: '3%',
-				approvalTime: '1 ngày'
+				image: 'vpblady.png',
+				income: '200,000 VND',
+				commision: '5%',
+				approvalTime: '2 ngày'
 			},
-			description: 'Tài khoản thanh toán với lãi suất hấp dẫn.',
-			paymentTerm: 'Hàng tháng',
-			productOffer: 'Miễn phí giao dịch',
-			customerRequirement: 'Không yêu cầu thu nhập',
+			productOffer: [
+				{
+					summary: 'Ưu đãi đặc biệt',
+					offer: ['Miễn phí thường niên', 'Tích điểm đổi quà']
+				}
+			],
+			customerRequirement: 'Yêu cầu xác minh thu nhập',
 			supportArea: 'Toàn quốc',
+			creditBackground: 'Không yêu cầu',
+			workBackground: 'Không yêu cầu',
+			income: '10 triệu VND/tháng',
+			cardLimit: '100 triệu VND',
+			dailyCashLimit: '10 triệu VND',
+			cardValidTime: '3 năm',
+			paymentTerm: 'Hàng tháng',
 			requiredDocuments: 'CMND, Sổ hộ khẩu',
-			finalResultTime: '2 ngày',
-			commisionPolicy: '3% trên mỗi giao dịch'
+			approvalTime: '2 ngày',
+			finalResultTime: '5 ngày',
+			commisionPolicy: {
+				status: 'Active',
+				description: 'Chính sách hoa hồng hấp dẫn',
+				commision: ['5% cho giao dịch đầu tiên'],
+				note: 'Áp dụng với khách hàng mới'
+			},
+			recognitionRules: {
+				summary: 'Quy tắc ghi nhận',
+				rules: ['Đăng ký hợp lệ', 'Xác minh thông tin đầy đủ'],
+				note: 'Không áp dụng cho khách hàng đã có thẻ'
+			},
+			registrationProcess: ['Đăng ký online', 'Xác minh thông tin'],
+			rejectReason: ['Không đủ điều kiện tài chính'],
+			unqualifiedRecords: ['Thiếu giấy tờ tùy thân']
 		},
 		{
-			link: '/campaign/5',
 			id: '5',
-			category: PRODUCT_CATEGORY.paymentAccount,
-			name: 'VP Lady',
-			advertiser: 'VP Lady',
+			category: PRODUCT_CATEGORY_DESCRIPTION.creditCard,
+			name: 'Thẻ tín dụng ACB',
+			advertiser: 'Ngân hàng ACB',
+			link: '/campaign/5',
 			show: {
-				image: 'VPBank_Lady.png',
-				income: '150,000 VND',
-				commision: '3%',
-				approvalTime: '1 ngày'
+				image: 'vpbvna.png',
+				income: '200,000 VND',
+				commision: '5%',
+				approvalTime: '2 ngày'
 			},
-			description: 'Tài khoản thanh toán với lãi suất hấp dẫn.',
-			paymentTerm: 'Hàng tháng',
-			productOffer: 'Miễn phí giao dịch',
-			customerRequirement: 'Không yêu cầu thu nhập',
+			productOffer: [
+				{
+					summary: 'Ưu đãi đặc biệt',
+					offer: ['Miễn phí thường niên', 'Tích điểm đổi quà']
+				}
+			],
+			customerRequirement: 'Yêu cầu xác minh thu nhập',
 			supportArea: 'Toàn quốc',
+			creditBackground: 'Không yêu cầu',
+			workBackground: 'Không yêu cầu',
+			income: '10 triệu VND/tháng',
+			cardLimit: '100 triệu VND',
+			dailyCashLimit: '10 triệu VND',
+			cardValidTime: '3 năm',
+			paymentTerm: 'Hàng tháng',
 			requiredDocuments: 'CMND, Sổ hộ khẩu',
-			finalResultTime: '2 ngày',
-			commisionPolicy: '3% trên mỗi giao dịch'
+			approvalTime: '2 ngày',
+			finalResultTime: '5 ngày',
+			commisionPolicy: {
+				status: 'Active',
+				description: 'Chính sách hoa hồng hấp dẫn',
+				commision: ['5% cho giao dịch đầu tiên'],
+				note: 'Áp dụng với khách hàng mới'
+			},
+			recognitionRules: {
+				summary: 'Quy tắc ghi nhận',
+				rules: ['Đăng ký hợp lệ', 'Xác minh thông tin đầy đủ'],
+				note: 'Không áp dụng cho khách hàng đã có thẻ'
+			},
+			registrationProcess: ['Đăng ký online', 'Xác minh thông tin'],
+			rejectReason: ['Không đủ điều kiện tài chính'],
+			unqualifiedRecords: ['Thiếu giấy tờ tùy thân']
+		},
+		{
+			id: '6',
+			category: PRODUCT_CATEGORY_DESCRIPTION.paymentAccount,
+			name: 'Thẻ tín dụng ACB',
+			advertiser: 'Ngân hàng ACB',
+			link: '/campaign/6',
+			show: {
+				image: 'vpbmc2.png',
+				income: '200,000 VND',
+				commision: '5%',
+				approvalTime: '2 ngày'
+			},
+			productOffer: [
+				{
+					summary: 'Ưu đãi đặc biệt',
+					offer: ['Miễn phí thường niên', 'Tích điểm đổi quà']
+				}
+			],
+			customerRequirement: 'Yêu cầu xác minh thu nhập',
+			supportArea: 'Toàn quốc',
+			creditBackground: 'Không yêu cầu',
+			workBackground: 'Không yêu cầu',
+			income: '10 triệu VND/tháng',
+			cardLimit: '100 triệu VND',
+			dailyCashLimit: '10 triệu VND',
+			cardValidTime: '3 năm',
+			paymentTerm: 'Hàng tháng',
+			requiredDocuments: 'CMND, Sổ hộ khẩu',
+			approvalTime: '2 ngày',
+			finalResultTime: '5 ngày',
+			commisionPolicy: {
+				status: 'Active',
+				description: 'Chính sách hoa hồng hấp dẫn',
+				commision: ['5% cho giao dịch đầu tiên'],
+				note: 'Áp dụng với khách hàng mới'
+			},
+			recognitionRules: {
+				summary: 'Quy tắc ghi nhận',
+				rules: ['Đăng ký hợp lệ', 'Xác minh thông tin đầy đủ'],
+				note: 'Không áp dụng cho khách hàng đã có thẻ'
+			},
+			registrationProcess: ['Đăng ký online', 'Xác minh thông tin'],
+			rejectReason: ['Không đủ điều kiện tài chính'],
+			unqualifiedRecords: ['Thiếu giấy tờ tùy thân']
+		},
+		{
+			id: '7',
+			category: PRODUCT_CATEGORY_DESCRIPTION.paymentAccount,
+			name: 'Thẻ tín dụng ACB',
+			advertiser: 'Ngân hàng ACB',
+			link: '/campaign/7',
+			show: {
+				image: 'vpbgenz.png',
+				income: '200,000 VND',
+				commision: '5%',
+				approvalTime: '2 ngày'
+			},
+			productOffer: [
+				{
+					summary: 'Ưu đãi đặc biệt',
+					offer: ['Miễn phí thường niên', 'Tích điểm đổi quà']
+				}
+			],
+			customerRequirement: 'Yêu cầu xác minh thu nhập',
+			supportArea: 'Toàn quốc',
+			creditBackground: 'Không yêu cầu',
+			workBackground: 'Không yêu cầu',
+			income: '10 triệu VND/tháng',
+			cardLimit: '100 triệu VND',
+			dailyCashLimit: '10 triệu VND',
+			cardValidTime: '3 năm',
+			paymentTerm: 'Hàng tháng',
+			requiredDocuments: 'CMND, Sổ hộ khẩu',
+			approvalTime: '2 ngày',
+			finalResultTime: '5 ngày',
+			commisionPolicy: {
+				status: 'Active',
+				description: 'Chính sách hoa hồng hấp dẫn',
+				commision: ['5% cho giao dịch đầu tiên'],
+				note: 'Áp dụng với khách hàng mới'
+			},
+			recognitionRules: {
+				summary: 'Quy tắc ghi nhận',
+				rules: ['Đăng ký hợp lệ', 'Xác minh thông tin đầy đủ'],
+				note: 'Không áp dụng cho khách hàng đã có thẻ'
+			},
+			registrationProcess: ['Đăng ký online', 'Xác minh thông tin'],
+			rejectReason: ['Không đủ điều kiện tài chính'],
+			unqualifiedRecords: ['Thiếu giấy tờ tùy thân']
+		},
+		{
+			id: '8',
+			category: PRODUCT_CATEGORY_DESCRIPTION.paymentAccount,
+			name: 'Thẻ tín dụng ACB',
+			advertiser: 'Ngân hàng ACB',
+			link: '/campaign/8',
+			show: {
+				image: 'vpbstepup.png',
+				income: '200,000 VND',
+				commision: '5%',
+				approvalTime: '2 ngày'
+			},
+			productOffer: [
+				{
+					summary: 'Ưu đãi đặc biệt',
+					offer: ['Miễn phí thường niên', 'Tích điểm đổi quà']
+				}
+			],
+			customerRequirement: 'Yêu cầu xác minh thu nhập',
+			supportArea: 'Toàn quốc',
+			creditBackground: 'Không yêu cầu',
+			workBackground: 'Không yêu cầu',
+			income: '10 triệu VND/tháng',
+			cardLimit: '100 triệu VND',
+			dailyCashLimit: '10 triệu VND',
+			cardValidTime: '3 năm',
+			paymentTerm: 'Hàng tháng',
+			requiredDocuments: 'CMND, Sổ hộ khẩu',
+			approvalTime: '2 ngày',
+			finalResultTime: '5 ngày',
+			commisionPolicy: {
+				status: 'Active',
+				description: 'Chính sách hoa hồng hấp dẫn',
+				commision: ['5% cho giao dịch đầu tiên'],
+				note: 'Áp dụng với khách hàng mới'
+			},
+			recognitionRules: {
+				summary: 'Quy tắc ghi nhận',
+				rules: ['Đăng ký hợp lệ', 'Xác minh thông tin đầy đủ'],
+				note: 'Không áp dụng cho khách hàng đã có thẻ'
+			},
+			registrationProcess: ['Đăng ký online', 'Xác minh thông tin'],
+			rejectReason: ['Không đủ điều kiện tài chính'],
+			unqualifiedRecords: ['Thiếu giấy tờ tùy thân']
+		},
+		{
+			id: '9',
+			category: PRODUCT_CATEGORY_DESCRIPTION.paymentAccount,
+			name: 'Thẻ tín dụng ACB',
+			advertiser: 'Ngân hàng ACB',
+			link: '/campaign/9',
+			show: {
+				image: 'vpbvna.png',
+				income: '200,000 VND',
+				commision: '5%',
+				approvalTime: '2 ngày'
+			},
+			productOffer: [
+				{
+					summary: 'Ưu đãi đặc biệt',
+					offer: ['Miễn phí thường niên', 'Tích điểm đổi quà']
+				}
+			],
+			customerRequirement: 'Yêu cầu xác minh thu nhập',
+			supportArea: 'Toàn quốc',
+			creditBackground: 'Không yêu cầu',
+			workBackground: 'Không yêu cầu',
+			income: '10 triệu VND/tháng',
+			cardLimit: '100 triệu VND',
+			dailyCashLimit: '10 triệu VND',
+			cardValidTime: '3 năm',
+			paymentTerm: 'Hàng tháng',
+			requiredDocuments: 'CMND, Sổ hộ khẩu',
+			approvalTime: '2 ngày',
+			finalResultTime: '5 ngày',
+			commisionPolicy: {
+				status: 'Active',
+				description: 'Chính sách hoa hồng hấp dẫn',
+				commision: ['5% cho giao dịch đầu tiên'],
+				note: 'Áp dụng với khách hàng mới'
+			},
+			recognitionRules: {
+				summary: 'Quy tắc ghi nhận',
+				rules: ['Đăng ký hợp lệ', 'Xác minh thông tin đầy đủ'],
+				note: 'Không áp dụng cho khách hàng đã có thẻ'
+			},
+			registrationProcess: ['Đăng ký online', 'Xác minh thông tin'],
+			rejectReason: ['Không đủ điều kiện tài chính'],
+			unqualifiedRecords: ['Thiếu giấy tờ tùy thân']
+		},
+		{
+			id: '10',
+			category: PRODUCT_CATEGORY_DESCRIPTION.loan,
+			name: 'Thẻ tín dụng ACB',
+			advertiser: 'Ngân hàng ACB',
+			link: '/campaign/10',
+			show: {
+				image: 'vpblady.png',
+				income: '200,000 VND',
+				commision: '5%',
+				approvalTime: '2 ngày'
+			},
+			productOffer: [
+				{
+					summary: 'Ưu đãi đặc biệt',
+					offer: ['Miễn phí thường niên', 'Tích điểm đổi quà']
+				}
+			],
+			customerRequirement: 'Yêu cầu xác minh thu nhập',
+			supportArea: 'Toàn quốc',
+			creditBackground: 'Không yêu cầu',
+			workBackground: 'Không yêu cầu',
+			income: '10 triệu VND/tháng',
+			cardLimit: '100 triệu VND',
+			dailyCashLimit: '10 triệu VND',
+			cardValidTime: '3 năm',
+			paymentTerm: 'Hàng tháng',
+			requiredDocuments: 'CMND, Sổ hộ khẩu',
+			approvalTime: '2 ngày',
+			finalResultTime: '5 ngày',
+			commisionPolicy: {
+				status: 'Active',
+				description: 'Chính sách hoa hồng hấp dẫn',
+				commision: ['5% cho giao dịch đầu tiên'],
+				note: 'Áp dụng với khách hàng mới'
+			},
+			recognitionRules: {
+				summary: 'Quy tắc ghi nhận',
+				rules: ['Đăng ký hợp lệ', 'Xác minh thông tin đầy đủ'],
+				note: 'Không áp dụng cho khách hàng đã có thẻ'
+			},
+			registrationProcess: ['Đăng ký online', 'Xác minh thông tin'],
+			rejectReason: ['Không đủ điều kiện tài chính'],
+			unqualifiedRecords: ['Thiếu giấy tờ tùy thân']
 		}
 	]
-	const pickIcon = (category: string) => {
-		switch (category) {
-			case PRODUCT_CATEGORY.creditCard:
-				return <CreditCard className='mr-2 inline text-primary' />
-			case PRODUCT_CATEGORY.paymentAccount:
-				return <CircleDollarSign className='mr-2 inline text-primary' />
-			case PRODUCT_CATEGORY.recruitment:
-				return <Users className='mr-2 inline text-primary' />
-			case PRODUCT_CATEGORY.loan:
-				return <HandCoins className='mr-2 inline text-primary' />
-			default:
-				return <Package className='mr-2 inline text-primary' />
-		}
+	const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+	const handleCategoryChange = (value: string) => {
+		setSelectedCategory(value)
 	}
 	return (
 		<div className='relative flex h-screen'>
@@ -145,32 +475,16 @@ const Campain = () => {
 						<Banner
 							avatarUrl='/card/anhDaiDien.jfif'
 							userName='Đăng Khoa'
+							onCategoryChange={handleCategoryChange}
 						/>
 					</div>
 
-					<div className='mt-[80px] p-4'>
+					<div className='mt-[40px] p-4'>
 						<div className='mb-6'>
-							<h2 className='mb-4 ml-[-15px] flex text-xl font-bold text-primary'>
-								{pickIcon(PRODUCT_CATEGORY.creditCard)}
-								Thẻ tín dụng
-							</h2>
-							<ListCard products={products} />
-						</div>
-
-						<div className='mb-6 mt-14'>
-							<h2 className='mb-4 ml-[-15px] flex text-xl font-bold text-primary'>
-								{pickIcon(PRODUCT_CATEGORY.paymentAccount)}
-								Tài Khoản Thanh Toán
-							</h2>
-							<ListCard products={products} />
-						</div>
-
-						<div className='mb-6 mt-14'>
-							<h2 className='mb-4 ml-[-15px] flex text-xl font-bold text-primary'>
-								{pickIcon(PRODUCT_CATEGORY.loan)}
-								Vay Tín Chấp
-							</h2>
-							<ListCard products={products} />
+							<ListCard
+								products={products}
+								selectedCategory={selectedCategory!}
+							/>
 						</div>
 					</div>
 				</div>

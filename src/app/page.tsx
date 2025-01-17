@@ -1,11 +1,7 @@
-import Campain from '@/app/dashboard/campain/page'
+import { redirect } from 'next/navigation'
 
-const HomePage = () => {
-	return (
-		<div>
-			<Campain />
-		</div>
-	)
+const HomePage = async () => {
+	redirect('/dashboard/campaign')
 }
 
 export default HomePage
