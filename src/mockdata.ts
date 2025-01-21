@@ -2,7 +2,7 @@ import { Report } from '@/types'
 
 export const mockReportData: Report[] = [
 	{
-		id: '6785cd276e4083b4dd1bc43d',
+		id: '6785cd276e4083',
 		createdAt: new Date('2024-01-01T10:00:00Z').toISOString(),
 		campaignCode: 'CMP001',
 		publisherCode: 'PUB001',
@@ -13,7 +13,7 @@ export const mockReportData: Report[] = [
 		managerCode: 'AM001'
 	},
 	{
-		id: '6785cd276e4083b4dd1bc43a',
+		id: '6785cd276e408',
 		createdAt: new Date('2024-01-05T15:30:00Z').toISOString(),
 		campaignCode: 'CMP002',
 		publisherCode: 'PUB002',
@@ -24,7 +24,7 @@ export const mockReportData: Report[] = [
 		managerCode: 'AM002'
 	},
 	{
-		id: '6785cd276e4083b4dd1bc43b',
+		id: '6785cd276e408',
 		createdAt: new Date('2024-01-10T08:45:00Z').toISOString(),
 		campaignCode: 'CMP003',
 		publisherCode: 'PUB003',
@@ -35,7 +35,7 @@ export const mockReportData: Report[] = [
 		managerCode: 'AM003'
 	},
 	{
-		id: '6785cd276e4083b4dd1bc43c',
+		id: '6785cd276e408',
 		createdAt: new Date('2024-01-15T12:00:00Z').toISOString(),
 		campaignCode: 'CMP004',
 		publisherCode: 'PUB004',

@@ -8,16 +8,22 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { FormError } from '@/components/form-response'
+import PolicyButton from '@/components/policies/policy-button'
 import { Button } from '@/components/ui/button'
+import { Checkbox } from '@/components/ui/checkbox'
 import {
 	Form,
 	FormControl,
+	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useSercurityPolicyStore } from '@/hooks/use-sercurity-policy-store'
+import { useTermPolicyStore } from '@/hooks/use-term-policy-store'
+import { useUserPolicyStore } from '@/hooks/use-user-policy-store'
 import { register } from '@/modules/auth/actions/register'
 import { FormWrapper } from '@/modules/auth/components/form/form-wrapper'
 import {
@@ -38,7 +44,9 @@ const RegisterForm = () => {
 		}
 	})
 	const [error, setError] = useState<string | undefined>(undefined)
-
+	const { onOpen: onOpenSercutiryPolicy } = useSercurityPolicyStore()
+	const { onOpen: onOpenTermPolicy } = useTermPolicyStore()
+	const { onOpen: onOpenUserPolicy } = useUserPolicyStore()
 	const { isPending, mutate: onRegister } = useMutation({
 		mutationFn: async (values: RegisterSchema) => await register(values),
 		onSuccess: data => {
@@ -57,7 +65,7 @@ const RegisterForm = () => {
 			<Form {...form}>
 				<form
 					autoComplete='autocomplete_off_randString'
-					className='mx-auto flex w-full max-w-md flex-col gap-2.5 px-4 pt-4'
+					className='mx-auto flex w-full max-w-md flex-col gap-2.5 px-4 pt-1'
 					onSubmit={form.handleSubmit(onSubmit)}
 				>
 					<FormField
@@ -181,12 +189,43 @@ const RegisterForm = () => {
 								</FormItem>
 							)}
 						/>
-
 						<Link href='/auth/forgot-password'>
 							<p className='text-right text-xs/3 font-medium text-primary/50 transition-all duration-150 ease-out hover:text-primary hover:underline'>
 								Quên mật khẩu
 							</p>
 						</Link>
+						<FormField
+							name='tnc'
+							control={form.control}
+							render={({ field }) => (
+								<FormItem className='flex flex-row items-start space-x-3 space-y-0 rounded-md border border-primary bg-background p-2 shadow'>
+									<FormControl>
+										<Checkbox
+											checked={field.value}
+											disabled={isPending}
+											onCheckedChange={field.onChange}
+										/>
+									</FormControl>
+									<div className='select-none space-y-1 leading-3'>
+										<FormDescription className='cursor-pointer text-justify text-xs font-medium'>
+											Bằng việc cung cấp thông tin, bạn đã đồng ý với{' '}
+											<PolicyButton onOpen={onOpenSercutiryPolicy}>
+												Điều khoản sử dụng dịch vụ FIMI
+											</PolicyButton>
+											,{' '}
+											<PolicyButton onOpen={onOpenTermPolicy}>
+												Chính sách bảo vệ dữ liệu cá nhân
+											</PolicyButton>{' '}
+											và{' '}
+											<PolicyButton onOpen={onOpenUserPolicy}>
+												Thông báo bảo mật của chúng tôi
+											</PolicyButton>
+											.
+										</FormDescription>
+									</div>
+								</FormItem>
+							)}
+						/>
 					</div>
 					<FormError message={error} />
 
@@ -198,15 +237,15 @@ const RegisterForm = () => {
 						className='items-center gap-4 bg-gradient-to-tr from-primary from-30% to-secondary text-xs font-bold'
 					>
 						{isPending && <Loader2 className='size-5 animate-spin' />}
-						Tiếp tục
+						Đăng Ký
 					</Button>
 				</form>
 			</Form>
 
 			<p className='px-2 py-2.5 text-center text-xs'>
-				Bạn chưa có mã giới thiệu{' '}
+				Bạn đã có tài khoản{' '}
 				<span className='font-semibold text-primary transition hover:underline'>
-					<Link href={'/auth/login'}>Đăng Nhập </Link>
+					<Link href={'/auth/login'}>Đăng nhập </Link>
 				</span>
 			</p>
 		</FormWrapper>

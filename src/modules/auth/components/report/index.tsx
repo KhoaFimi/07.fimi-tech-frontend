@@ -126,7 +126,7 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 			{/* Filter and search tool */}
 			<div
 				className={cn(
-					'mt-[-20px] grid w-full grid-cols-2 justify-center gap-2 lg:grid-cols-4'
+					'mt-[-20px] grid w-[100%] grid-cols-2 justify-center gap-2 lg:grid-cols-4'
 				)}
 			>
 				{/* Filter by status and payment status */}
@@ -432,8 +432,8 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 			</div>
 
 			{/* Data table */}
-			<div className='h-[27rem] overflow-y-auto rounded-md border'>
-				<Table className='relative overflow-x-auto'>
+			<div className='h-[27rem] w-full overflow-y-auto rounded-md border'>
+				<Table className='relative w-full table-auto overflow-x-auto'>
 					<TableHeader className='sticky inset-x-0 top-0 z-30 bg-background'>
 						{table.getHeaderGroups().map(headerGroup => (
 							<TableRow key={headerGroup.id}>
@@ -444,8 +444,6 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 											key={header.id}
 											className='text-lg'
 										>
-											{' '}
-											{/* Tăng cỡ chữ tiêu đề */}
 											<div className='flex flex-col gap-1'>
 												{header.isPlaceholder
 													? null
@@ -484,7 +482,6 @@ const ManagmentReport: FC<ManagmentReportProps> = ({
 												key={cell.id}
 												className='font-semibold'
 											>
-												{' '}
 												{flexRender(
 													cell.column.columnDef.cell,
 													cell.getContext()

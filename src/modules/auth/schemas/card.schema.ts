@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { PRODUCT_CATEGORY_DESCRIPTION } from '../../../../category'
+import { PRODUCT_CATEGORY_DESCRIPTION } from '@/category'
 
 export const productSchema = z.object({
 	id: z.string(),

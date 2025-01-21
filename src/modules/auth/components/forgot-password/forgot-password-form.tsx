@@ -98,7 +98,7 @@ const ForgotPasswordForm = () => {
 			</Form>
 
 			<p className='px-2 py-2.5 text-xs'>
-				Bạn đã có mã giới thiệu{' '}
+				Bạn đã có tài khoản{' '}
 				<span className='font-semibold text-primary transition hover:underline'>
 					<Link href={'/auth/login'}>Đăng nhập</Link>
 				</span>

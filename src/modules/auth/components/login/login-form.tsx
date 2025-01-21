@@ -67,7 +67,7 @@ const LoginForm = () => {
 										className='size-3'
 										strokeWidth={3}
 									/>
-									<p className='leading-none'>Email / Số điện thoại</p>
+									<p className='leading-none'>Email </p>
 								</FormLabel>
 								<FormControl>
 									<Input
@@ -100,12 +100,19 @@ const LoginForm = () => {
 											type='password'
 											disabled={isPending}
 											className='border border-primary text-xs caret-primary focus-visible:ring-0'
+											onKeyDown={e => {
+												if (e.key === 'Enter') {
+													e.preventDefault()
+													form.handleSubmit(onSubmit)()
+												}
+											}}
 										/>
 									</FormControl>
 									<FormMessage />
 								</FormItem>
 							)}
 						/>
+
 						<Link href='/auth/forgot-password'>
 							<p className='text-right text-xs/3 font-medium text-primary/50 transition-all duration-150 ease-out hover:text-primary hover:underline'>
 								Quên mật khẩu
@@ -122,13 +129,13 @@ const LoginForm = () => {
 						className='items-center gap-4 bg-gradient-to-tr from-primary from-30% to-secondary text-xs font-bold'
 					>
 						{isPending && <Loader2 className='size-5 animate-spin' />}
-						Tiếp tục
+						Đăng Nhập
 					</Button>
 				</form>
 			</Form>
 
 			<p className='px-2 py-2.5 text-center text-xs'>
-				Bạn chưa có mã giới thiệu{' '}
+				Bạn chưa có tài khoản{' '}
 				<span className='font-semibold text-primary transition hover:underline'>
 					<Link href={'/auth/register'}>Đăng ký</Link>
 				</span>

@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 
+import { Button } from '@/components/ui/button'
 import { SidebarProvider } from '@/components/ui/sidebar'
 import { mockReportData } from '@/mockdata'
 import { getCampaignCode } from '@/modules/auth/actions/get-campaign-code'
@@ -70,8 +71,16 @@ const ReportPage = () => {
 							showSearch={false}
 						/>
 					</div>
-					<div className='mt-16 flex-1 overflow-y-auto p-4 md:ml-[10px]'>
+					<div className='mt-16 flex-1 overflow-y-auto pr-6 pt-4'>
 						<Example />
+						<div className='mt-4 flex justify-end'>
+							<Button
+								variant='outline'
+								className='border-[3px] border-black hover:bg-primary'
+							>
+								Xuất Bản
+							</Button>
+						</div>
 						<div className='mt-[40px] flex flex-col space-y-12'>
 							<ManagmentReport
 								publisherCode={userId!}

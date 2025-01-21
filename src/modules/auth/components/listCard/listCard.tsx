@@ -7,7 +7,7 @@ import { FC } from 'react'
 import CampaignItem from '@/modules/auth/components/card/card'
 import { ProductsSchema } from '@/modules/auth/schemas/card.schema'
 
-import { PRODUCT_CATEGORY_DESCRIPTION } from '../../../../../category'
+import { PRODUCT_CATEGORY_DESCRIPTION } from '../../../../category'
 
 interface CampaignListProps {
 	products: ProductsSchema
@@ -74,7 +74,7 @@ const CampaignList: FC<CampaignListProps> = ({
 									strokeWidth={3}
 								/>
 							</div>
-							<div className='mt-[30px] grid grid-cols-2 place-items-center gap-24 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
+							<div className='mt-[30px] grid grid-cols-2 place-items-center gap-20 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
 								{products.map(product => (
 									<CampaignItem
 										key={product.id}

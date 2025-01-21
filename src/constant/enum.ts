@@ -4,9 +4,9 @@ export enum GENDER {
 }
 
 export enum REPORT_STATUS {
-	PENDING = 'Chưa hoàn thành đơn',
-	APPROVED = 'Ghi nhận hoa hồng',
-	REJECTED = 'Từ chối'
+	PENDING = 'Pending',
+	APPROVED = 'Approved',
+	REJECTED = 'Rejected'
 }
 
 export enum PAYMENT_STATUS {

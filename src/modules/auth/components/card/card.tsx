@@ -10,7 +10,7 @@ const CampaignItem: FC<{ product: ProductSchema }> = ({ product }) => {
 	return (
 		<Link
 			href={`/campaign/${product.id}`}
-			className='relative flex h-[290px] w-[178px] overflow-hidden rounded-xl border bg-white/80 shadow'
+			className='relative flex h-[256px] w-[148px] overflow-hidden rounded-xl border bg-white/80 shadow'
 		>
 			<Image
 				src={`/card/${product.show.image}`}

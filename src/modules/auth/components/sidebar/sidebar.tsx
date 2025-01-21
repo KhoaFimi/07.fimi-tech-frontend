@@ -29,7 +29,7 @@ const AppSidebar = () => {
 	}, [])
 
 	return (
-		<Sidebar className='fixed z-[48] flex min-h-screen w-64 flex-col justify-between bg-primary'>
+		<Sidebar className='fixed z-[48] flex min-h-screen w-56 flex-col justify-between bg-primary'>
 			<div>
 				<Link
 					href='/campaign'
@@ -40,7 +40,7 @@ const AppSidebar = () => {
 						width={3148}
 						height={1367}
 						alt='logo'
-						className='ml-[75px] mt-[8px] w-[100px]'
+						className='ml-auto mr-auto mt-[8px] w-[100px]'
 					/>
 				</Link>
 			</div>
@@ -48,6 +48,12 @@ const AppSidebar = () => {
 			<div className='ml-[20px] mt-[45px] font-bold text-white'>
 				<SidebarMenuItem>
 					<SidebarMenuButton className='flex items-center justify-between text-[16px]'>
+						<Link href='/dashboard/dashboard'>Trang Chủ</Link>
+					</SidebarMenuButton>
+				</SidebarMenuItem>
+
+				<SidebarMenuItem>
+					<SidebarMenuButton className='mt-2 flex items-center justify-between text-[16px]'>
 						<Link href='/dashboard/campaign'>Chiến Dịch</Link>
 					</SidebarMenuButton>
 				</SidebarMenuItem>
@@ -82,7 +88,7 @@ const AppSidebar = () => {
 				)}
 			</div>
 
-			<SidebarFooter className='fixed bottom-0 left-0 w-[255px] bg-white text-[10px] font-bold text-primary'>
+			<SidebarFooter className='fixed bottom-0 left-0 w-[240px] bg-white text-[9px] font-bold text-primary'>
 				<p>Copyright © FIMI Tech Co., Ltd, all right reserved.</p>
 			</SidebarFooter>
 		</Sidebar>

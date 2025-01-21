@@ -7,7 +7,7 @@ import Banner from '@/modules/auth/components/banner/banner'
 import ListCard from '@/modules/auth/components/listCard/listCard'
 import AppSidebar from '@/modules/auth/components/sidebar/sidebar'
 
-import { PRODUCT_CATEGORY_DESCRIPTION } from '../../../../category'
+import { PRODUCT_CATEGORY_DESCRIPTION } from '../../../category'
 
 const Campain = () => {
 	const products = [
