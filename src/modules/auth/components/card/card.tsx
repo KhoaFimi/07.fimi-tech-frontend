@@ -22,7 +22,7 @@ const CampaignItem: FC<{ product: ProductSchema }> = ({ product }) => {
 			<div className='absolute inset-0 bottom-0 h-full w-full transition-all' />
 
 			<div className='z-30 mt-auto flex h-[31%] w-full select-none flex-col items-center gap-y-1 bg-white p-1 pt-2'>
-				<p className='truncate text-[16px] font-semibold leading-none tracking-tight'>
+				<p className='text-[16px] font-semibold leading-none tracking-tight'>
 					{product.name}
 				</p>
 

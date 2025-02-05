@@ -2,6 +2,12 @@ export enum GENDER {
 	MALE = 'Nam',
 	FEMALE = 'Nữ'
 }
+export enum NamePage {
+	campaign = 'Chiến dịch',
+	report = 'Báo Cáo',
+	news = 'Tin tức & sự kiện',
+	tut = 'Hướng dẫn'
+}
 
 export enum REPORT_STATUS {
 	PENDING = 'Pending',

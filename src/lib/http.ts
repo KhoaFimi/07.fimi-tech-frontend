@@ -18,6 +18,7 @@ interface IPayload<T = any> {
 	statusCode: SuccessCode | ErrorCode
 	message: string
 	data: T
+	error?: any
 }
 
 interface IResponse<T = any> {

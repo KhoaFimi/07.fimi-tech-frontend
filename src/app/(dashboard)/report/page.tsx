@@ -4,14 +4,11 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
-import { SidebarProvider } from '@/components/ui/sidebar'
 import { mockReportData } from '@/mockdata'
 import { getCampaignCode } from '@/modules/auth/actions/get-campaign-code'
 import { role } from '@/modules/auth/actions/role'
-import Banner from '@/modules/auth/components/banner/banner'
 import ManagmentReport from '@/modules/auth/components/report/index'
 import Example from '@/modules/auth/components/report/report1-panel'
-import AppSidebar from '@/modules/auth/components/sidebar/sidebar'
 
 const initialData = [
 	{ id: '0', label: 'vpbstepup', value: 'vpbstepup' },
@@ -41,13 +38,11 @@ const ReportPage = () => {
 	})
 
 	const [userId, setUserId] = useState<string | null>(null)
-	const [, setSelectedCategory] = useState<string | null>(null)
-	const handleCategoryChange = (value: string) => {
-		setSelectedCategory(value)
-	}
+
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			const token = sessionStorage.getItem('accessToken')
+
 			if (token) {
 				role(token).then(response => {
 					if (response.id !== undefined) {
@@ -59,40 +54,27 @@ const ReportPage = () => {
 	}, [])
 
 	return (
-		<div className='relative flex h-screen w-screen overflow-hidden'>
-			<SidebarProvider>
-				<AppSidebar />
-				<div className='flex flex-1 flex-col'>
-					<div className='fixed left-0 top-0 z-40 w-full md:left-[243px]'>
-						<Banner
-							avatarUrl='/card/anhDaiDien.jfif'
-							userName='Đăng Khoa'
-							onCategoryChange={handleCategoryChange}
-							showSearch={false}
-						/>
-					</div>
-					<div className='mt-16 flex-1 overflow-y-auto pr-6 pt-4'>
-						<Example />
-						<div className='mt-4 flex justify-end'>
-							<Button
-								variant='outline'
-								className='border-[3px] border-black hover:bg-primary'
-							>
-								Xuất Bản
-							</Button>
-						</div>
-						<div className='mt-[40px] flex flex-col space-y-12'>
-							<ManagmentReport
-								publisherCode={userId!}
-								campaignData={campaignData ?? []}
-								data={mockReportData}
-								isPending={false}
-								refetch={() => Promise.reject('Function not implemented')}
-							/>
-						</div>
-					</div>
+		<div className='ml-6 flex flex-1 flex-col items-center'>
+			<div className='flex-1 overflow-y-auto pr-6 pt-4'>
+				<Example />
+				<div className='mt-4 flex justify-end'>
+					<Button
+						variant='outline'
+						className='border-[3px] border-black hover:bg-primary'
+					>
+						Xuất Bản
+					</Button>
 				</div>
-			</SidebarProvider>
+				<div className='mt-[40px] flex flex-col space-y-12'>
+					<ManagmentReport
+						publisherCode={userId!}
+						campaignData={campaignData ?? []}
+						data={mockReportData}
+						isPending={false}
+						refetch={() => Promise.reject('Function not implemented')}
+					/>
+				</div>
+			</div>
 		</div>
 	)
 }

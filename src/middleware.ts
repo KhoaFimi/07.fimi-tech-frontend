@@ -1,5 +1,6 @@
-import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
+
+import { refreshToken } from '@/modules/auth/actions/refreshToken'
 
 const authRoutes = [
 	'/auth/register',
@@ -9,28 +10,36 @@ const authRoutes = [
 	'/auth/forgot-password'
 ]
 
-const protectedRoutes = ['/dashboard/report', '/dashboard/campaign']
+const protectedRoutes = [
+	'/dashboard/report',
+	'/dashboard/campaign',
+	'/dashboard/dashboard',
+	'/dashboard/profile'
+]
 
 export default async function middleware(req: NextRequest) {
 	const path = req.nextUrl.pathname
-
-	const cookieStore = await cookies()
-	const refreshToken = cookieStore.get('refreshToken')?.value
+	const Response = await refreshToken()
 
 	const isProtectedRoute = protectedRoutes.some(route => path.startsWith(route))
 
 	const isAuthRoute = authRoutes.includes(path)
 
-	if (path.startsWith('/api/auth') && refreshToken) {
-		req.headers.set('authorization', `Bearer ${refreshToken}`)
+	if (path.startsWith('/api/auth')) {
+		return
+	}
+	// if (Response.error) {
+	// 	return NextResponse.redirect(new URL('/auth/login', req.nextUrl))
+	// }
+	if (isProtectedRoute && Response.accessToken) {
+		return NextResponse.redirect(new URL('/', req.nextUrl))
+	}
+	if (isAuthRoute && Response.accessToken) {
+		return NextResponse.redirect(new URL('/', req.nextUrl))
 	}
 
-	if (isProtectedRoute && !refreshToken) {
+	if (isProtectedRoute && !Response.accessToken) {
 		return NextResponse.redirect(new URL('/auth/login', req.nextUrl))
-	}
-
-	if (isAuthRoute && refreshToken) {
-		return NextResponse.redirect(new URL('/dashboard/campaign', req.nextUrl))
 	}
 
 	return NextResponse.next()

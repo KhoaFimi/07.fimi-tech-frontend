@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-const Example = () => {
+const Panel = () => {
 	return (
 		<div>
 			<div className='grid grid-cols-4 gap-4'>
@@ -113,4 +113,4 @@ const Example = () => {
 	)
 }
 
-export default Example
+export default Panel

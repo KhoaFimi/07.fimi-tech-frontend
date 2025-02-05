@@ -33,6 +33,14 @@ export const login = async (values: LoginSchema) => {
 		path: '/'
 	})
 
+	await coockieStore.set('accessToken', response.payload.data.accessToken, {
+		httpOnly: true,
+		secure: true,
+		maxAge: 60 * 60 * 24 * 7,
+		sameSite: 'none',
+		path: '/'
+	})
+
 	return {
 		success: 'Đăng Nhập Thành Công',
 		data: {

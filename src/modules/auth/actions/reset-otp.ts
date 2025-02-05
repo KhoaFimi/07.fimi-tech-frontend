@@ -10,14 +10,9 @@ export const resetOtp = async (values: ResetOtpSchema) => {
 	const validateData = resetOtpSchema.safeParse(values)
 	const param = validateData.data
 
-	const response = await http.get('accounts/new-otp/{key}', {
-		params: {
-			key: param?.verificationKey
-		}
-	})
+	const response = await http.get(`accounts/new-otp/${param?.verificationKey}`)
 
 	if (response.type === 'error') {
-		console.log(response)
 		return { error: response.payload.message }
 	}
 }

@@ -31,6 +31,10 @@ import {
 	registerSchema
 } from '@/modules/auth/schemas/register.shema'
 
+interface ValidationError {
+	field: string
+	detail: string
+}
 const RegisterForm = () => {
 	const form = useForm<RegisterSchema>({
 		resolver: zodResolver(registerSchema),
@@ -43,6 +47,7 @@ const RegisterForm = () => {
 			tnc: true
 		}
 	})
+
 	const [error, setError] = useState<string | undefined>(undefined)
 	const { onOpen: onOpenSercutiryPolicy } = useSercurityPolicyStore()
 	const { onOpen: onOpenTermPolicy } = useTermPolicyStore()
@@ -51,7 +56,16 @@ const RegisterForm = () => {
 		mutationFn: async (values: RegisterSchema) => await register(values),
 		onSuccess: data => {
 			if (data.error) {
-				setError(data.error)
+				if (!data.isValidationError) {
+					setError(data.error)
+					return
+				}
+
+				const validationError: ValidationError[] = JSON.parse(data.error)
+
+				for (const error of validationError) {
+					form.setError(error.field as any, { message: error.detail })
+				}
 			}
 		}
 	})

@@ -37,11 +37,11 @@ const LoginForm = () => {
 		mutationFn: async (values: LoginSchema) => await login(values),
 		onSuccess: data => {
 			sessionStorage.setItem('accessToken', data.data?.accessToken)
-			console.log(data.data?.accessToken)
+
 			if (data.error) {
 				setError(data.error)
 			} else {
-				router.push('/dashboard/campaign')
+				router.push('/')
 			}
 		}
 	})

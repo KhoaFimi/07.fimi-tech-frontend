@@ -140,8 +140,6 @@ const ResetPasswordForm = () => {
 										</InputOTP>
 									)}
 								/>
-
-								<FormError message={error} />
 							</Form>
 						</div>
 					</div>

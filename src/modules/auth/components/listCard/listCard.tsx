@@ -12,16 +12,26 @@ import { PRODUCT_CATEGORY_DESCRIPTION } from '../../../../category'
 interface CampaignListProps {
 	products: ProductsSchema
 	selectedCategory: string
+	searchTerm: string
 }
 
 const CampaignList: FC<CampaignListProps> = ({
 	products,
-	selectedCategory
+	selectedCategory,
+	searchTerm
 }) => {
-	const filteredProducts =
-		selectedCategory === PRODUCT_CATEGORY_DESCRIPTION.all || !selectedCategory
-			? products
-			: products.filter(product => product.category === selectedCategory)
+	const filteredProducts = products.filter(product => {
+		const matchesCategory =
+			selectedCategory === PRODUCT_CATEGORY_DESCRIPTION.all ||
+			!selectedCategory ||
+			product.category === selectedCategory
+
+		const matchesSearchTerm = product.name
+			.toLowerCase()
+			.includes(searchTerm?.toLowerCase() || '')
+
+		return matchesCategory && matchesSearchTerm
+	})
 
 	const productsData = _.groupBy(filteredProducts, product => product.category)
 
@@ -61,10 +71,12 @@ const CampaignList: FC<CampaignListProps> = ({
 							`}</style>
 							<div className='flex items-center gap-x-2'>
 								<h3 className='bg-gradient-to-tr from-primary from-30% to-secondary bg-clip-text text-center text-2xl font-bold uppercase text-transparent lg:text-left'>
-									{Object.entries(PRODUCT_CATEGORY_DESCRIPTION).find(
-										([_, value]) =>
-											value.toLowerCase() === category.toLowerCase()
-									)?.[1] || 'Danh mục không tồn tại'}
+									{
+										Object.entries(PRODUCT_CATEGORY_DESCRIPTION).find(
+											([_, value]) =>
+												value.toLowerCase() === category.toLowerCase()
+										)?.[1]
+									}
 								</h3>
 								<Icon
 									className='ml-2 size-8 text-primary/95'

@@ -3,8 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { Loader2, ShieldCheck } from 'lucide-react'
-import { useSearchParams } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { FormError } from '@/components/form-response'
@@ -15,15 +14,16 @@ import {
 	InputOTPGroup,
 	InputOTPSlot
 } from '@/components/ui/input-otp'
-import { otp } from '@/modules/auth/actions/otp'
+import { otpChangeEmail } from '@/modules/auth/actions/otp-change-email'
 import { resetOtp } from '@/modules/auth/actions/reset-otp'
 import { FormWrapper } from '@/modules/auth/components/form/form-wrapper'
 import { OtpSchema, otpSchema } from '@/modules/auth/schemas/otp.schema'
 import { ResetOtpSchema } from '@/modules/auth/schemas/resetOtp.schema'
 
-const OTPForm = () => {
-	const searchParams = useSearchParams()
-	const verificationKey = searchParams.get('key') ?? ''
+const OTPForm: FC<{
+	verificationKey: string
+	onClose: () => void
+}> = ({ verificationKey, onClose }) => {
 	const [error, setError] = useState<string | undefined>(undefined)
 	const [timer, setTimer] = useState(180)
 	const [canResend, setCanResend] = useState(false)
@@ -37,10 +37,14 @@ const OTPForm = () => {
 	})
 
 	const { isPending: isPendingOTP, mutate: onOTP } = useMutation({
-		mutationFn: async (values: OtpSchema) => await otp(values),
+		mutationFn: async (values: OtpSchema) => await otpChangeEmail(values),
 		onSuccess: data => {
-			if (data.error) {
+			if (data?.error) {
 				setError(data.error)
+			} else {
+				setTimeout(() => {
+					onClose()
+				}, 2000)
 			}
 		}
 	})

@@ -19,10 +19,19 @@ export const register = async (values: RegisterSchema) => {
 	const body = validateData.data
 
 	const response = await http.post('auth/sign-up', body)
-	console.log(response)
 
 	if (response.type === 'error') {
-		return { error: response.payload.message }
+		if (response.payload?.error.validationError)
+			return {
+				isValidationError: true,
+				error: JSON.stringify(response.payload?.error.validationError)
+			}
+		else {
+			return {
+				isValidationError: false,
+				error: response.payload.message
+			}
+		}
 	}
 
 	redirect(

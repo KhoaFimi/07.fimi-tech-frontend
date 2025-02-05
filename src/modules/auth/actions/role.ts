@@ -14,6 +14,12 @@ export const role = async (accessToken: string) => {
 	}
 	const userLevel = response.payload.data.user.level
 	const userId = response.payload.data.user.id
+	const data = response.payload.data
 
-	return { level: userLevel, id: userId, message: 'Lấy thông tin thành công' }
+	return {
+		level: userLevel,
+		id: userId,
+		data: data,
+		message: 'Lấy thông tin thành công'
+	}
 }
